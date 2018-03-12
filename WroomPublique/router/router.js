@@ -20,12 +20,12 @@ module.exports = function(app){
    app.get('/circuits/detailCircuit/:numCircuit', CircuitController.detailCircuit);
 
 // Ecuries
-   app.get('/ecuries', EcurieController.ListerEcurie);
+    app.get('/ecuries', EcurieController.ListerEcurie);
     app.get('/detailEcurie/:numEcurie', EcurieController.DetailEcurie);
 
  //Résultats
-   app.get('/resultats', ResultatController.ListerResultat);
-   
+   app.get('/resultats', ResultatController.ListerResultats);
+
 // tout le reste
   app.get('*', HomeController.Index);
   app.post('*', HomeController.Index);

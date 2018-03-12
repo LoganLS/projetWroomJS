@@ -7,18 +7,13 @@
 
 let db = require('../configDb');
 
-/*
-* Récupérer l'intégralité les écuries avec l'adresse de la photo du pays de l'écurie
-* @return Un tableau qui contient le N°, le nom de l'écurie et le nom de la photo du drapeau du pays
-*/
-module.exports.getListeEcurie = function (callback) {
+module.exports.getListeGrandPrix = function (callback) {
     // connection à la base
     db.getConnection(function(err, connexion){
         if(!err){
             // s'il n'y a pas d'erreur de connexion
             // execution de la requête SQL
-            let sql ="SELECT ecunum, payadrdrap, ecunom FROM ecurie e INNER JOIN pays p ";
-            sql= sql + "ON p.paynum=e.paynum ORDER BY ecunom";
+            let sql ="SELECT g.GPNOM, g.GPNUM, p.PAYADRDRAP FROM grandprix g, circuit c, pays p WHERE g.CIRNUM = c.CIRNUM AND c.PAYNUM = p.PAYNUM ";
             //console.log (sql);
             connexion.query(sql, callback);
 
@@ -27,7 +22,7 @@ module.exports.getListeEcurie = function (callback) {
         }
     });
 };
-
+/*
 module.exports.getPiloteNumEcurie=function(num,callback){
     // connection a la base
     db.getConnection(function(err, connexion){
@@ -74,3 +69,4 @@ module.exports.getInfosEcuries=function(num, callback){
     });
 };
 
+*/
