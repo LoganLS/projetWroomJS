@@ -1,0 +1,69 @@
+<!-- Detail d'un pilote -->
+<div>
+    <center>
+    Cliquez sur une lettre :
+    {{#each listePremiereLettreNom}}
+        <a href="/repertoirePilote/{{this.premiere_lettre}}">{{this.premiere_lettre}}</a>
+    {{/each}}
+    </center>
+    <br/>
+    <div style="display:inline">
+        <img style="float:left" src="/image/pilote/{{detailPilote.phoadresse}}" width="75" alt="pilote"/>
+    </div>
+    <div style="display:inline">
+        <table>
+            <tr>
+                <td>
+                    <b>Nom : </b>{{detailPilote.pilnom}} {{detailPilote.pilprenom}}
+                </td>
+            </tr>
+            <tr>
+                <td> 
+                    <b>Date de naissance :</b> {{formatDate detailPilote.pildatenais 'DD/MM/YYYY'}}
+                </td>
+                <td>
+                    <b>Poids : </b>{{detailPilote.pilpoids}} kg
+                </td>
+            </tr>
+            <tr>
+                <td> 
+                    <b>Nationalité :</b> {{detailPilote.paynat}}
+                </td>
+                <td>
+                    <b>Taille : </b>{{detailPilote.piltaille}} cm
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <b>Ecurie : </b>
+                    {{#each ecuriePilote}}
+                        {{this.ecunom}}
+                    {{else}}
+                        Pas d'écurie cette année
+                    {{/each}}
+                </td>
+            </tr>
+        </table>
+    </div>
+    <br/>
+    <!-- Principaux sponsors -->
+    <div>
+        {{#if sponsorsPilote}}
+            <b>Principaux sponsors : </b><br/>
+            {{#each sponsorsPilote}}
+                <b>{{this.sponom}}</b> ({{this.sposectactivite}})<br/>
+            {{/each}}
+        {{/if}}
+    </div>
+    
+    <p><b>Qui suis-je ? </b>{{detailPilote.piltexte}}</p>
+</div>
+    
+<!-- Photos -->
+<div>
+    {{#each photosPilote}}
+        <img src="/image/pilote/{{this.phoadresse}}" width="100" alt="photo pilote"/>
+    {{/each}}
+</div>
+
+<br class="myboth" />

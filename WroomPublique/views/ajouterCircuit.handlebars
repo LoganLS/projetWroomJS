@@ -1,0 +1,30 @@
+<center><h1>Ajouter un circuit</h1></center>
+<form method="get">
+    <table> 
+        <tr><td>Nom</td><td><input type="text" name="nom" required/></td></tr>
+        <tr><td>Longueur</td><td><input type="text" name="longueur" required/> m</td></tr>
+        <tr><td>Pays</td>
+            <td> 
+                <select name="pays">
+                    {{#each listePays}}
+                        <option name="{{this.paynum}}">{{this.paynom}}</option>
+                    {{/each}}
+                </select>
+            </td>
+        </tr>
+        <tr><td>Image</td>
+            <td>
+                <input type="file" required/>
+            </td>
+        </tr>
+        <tr><td>Nombre de spectateurs</td>
+            <td>
+                <input type="text" required/> personnes
+            </td>
+        </tr>
+        <tr><td>Description</td><td><textarea name="description" cols="75" rows="5" required></textarea></td></tr>
+    </table>
+    
+    <br/><br/>
+    <input type="submit" name="ajouter" value="Ajouter" id="bouton"/>
+</form>

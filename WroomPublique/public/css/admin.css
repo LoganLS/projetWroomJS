@@ -1,0 +1,22 @@
+#tableMenu{
+    border:1px solid black;
+    border-collapse:collapse;
+}
+
+th,.ligne{
+    border:1px solid black;
+}
+
+#bouton{
+    padding:6px 10px 6px 10px;
+    display:block;
+    margin:auto;
+    color:#ffff;
+    background-color: firebrick;
+    border:1px solid black;
+    font:bold 18px Arial;
+}
+
+input,textarea{
+    border-radius: 5px;
+}

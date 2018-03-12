@@ -1,0 +1,68 @@
+<!-- Detail d'un pilote -->
+<div>
+    <table class="tabpayscir">
+        {{#each listeEcurie}}
+            <tr><td><img src="/image/pays/{{this.payadrdrap}}" alt="drapeau du pays" />
+                <a href="/detailEcurie/{{this.ecunum}}"> {{this.ecunom}}</a>
+            </td></tr>
+        {{/each}}
+    </table>
+    <br class="myboth" />
+
+    <div style="display:inline">
+        <img style="float:left" src="/image/ecurie/{{infosEcurie.ECUADRESSEIMAGE}}" width="75" alt="ecurie"/>
+    </div>
+    <div style="display:inline">
+        <table>
+            <tr>
+                <td>
+                    <b>Nom : </b>{{infosEcurie.ECUNOM}}
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <b>Directeur : </b>{{infosEcurie.ECUNOMDIR}}
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <b>Adresse : </b>{{infosEcurie.ECUADRSIEGE}}
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <b>Pays : </b>{{infosEcurie.PAYNOM}}
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <b>Fournisseur pneu : </b>{{infosEcurie.FPNOM}}
+                </td>
+            </tr>
+        <tr>
+
+
+            {{#if infosPilotes}}
+                <td><b>Pilotes : </b></td>
+                {{#each infosPilotes}}
+                    <tr>
+                    <td>
+                        <p>{{this.PILNOM}} {{this.PILPRENOM}}</p>
+                    </td>
+                    </tr>
+
+                {{/each}}
+            {{else}}
+                <tr>
+                    <td>
+                        <b> Cette écurie ne participe pas au championnat cette année.</b>
+                    </td>
+                </tr>
+            {{/if}}
+        </tr>
+
+        </table>
+    </div>
+    <br/>
+
+<br class="myboth" />

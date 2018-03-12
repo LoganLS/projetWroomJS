@@ -1,0 +1,47 @@
+<center><h1>Modifier un Pilote</h1></center>
+
+<form method="get">
+    <table>
+        <tr><td>Prénom</td><td><input type="text" name="prenom" value="{{infosPilote.pilprenom}}" required/></td></tr>
+        <tr><td>Nom</td><td><input type="text" name="nom" value="{{infosPilote.pilnom}}" required/></td></tr>
+        <tr><td>Date de naissance</td>
+            <td>
+                <input type="text" width="50" name="jour" size="2" value="{{formatDate infosPilote.pildatenais 'DD' }}" required/> / 
+                <input type="text" name="mois" size="2" value="{{formatDate infosPilote.pildatenais 'MM' }}" required/> / 
+                <input type="text" name="annee" size="4" value="{{formatDate infosPilote.pildatenais 'YYYY' }}" required/>
+            </td>
+        </tr>
+        <tr>
+            <td>Nationalité</td>
+            <td>
+                <select name="nationalite">
+                    {{#each listeNationalite}}
+                        <option value="{{this.paynum}}" {{#ifCond  ../infosPilote.paynum '==' this.paynum}}selected{{/ifCond}}>
+                            {{this.paynat}}
+                        </option>
+                    {{/each}}
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td>Ecurie </td><td>
+            <select name="ecurie">
+                {{#each listeEcurie}}
+                    <option value="{{this.ecunum}}" {{#ifCond  ../ecurie.ecunum '==' this.ecunum}}selected{{/ifCond}}>
+                        {{this.ecunom}}
+                    </option>
+                {{/each}}
+            </select>
+            </td>
+        </tr>
+        <tr><td>Points</td><td><input type="text" name="points" value="{{infosPilote.pilpoints}}" required/> pts</td></tr>
+        <tr><td>Poids</td><td><input type="text" name="poids" value="{{infosPilote.pilpoids}}" required/> kg</td></tr>
+        <tr><td>Taille</td><td><input type="text" name="taille" value="{{infosPilote.piltaille}}" required/> cm</td></tr>
+        <tr><td>Description</td><td><textarea name="description" cols="75" rows="5" required>{{infosPilote.piltexte}}</textarea></td></tr>
+    </table>
+        
+    <br/><br/>
+    <input type="submit" name="modifier" value="Modifier" id="bouton"/>
+</form>
+
+<br class="myboth" />

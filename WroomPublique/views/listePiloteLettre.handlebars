@@ -1,0 +1,22 @@
+<center>
+Cliquez sur une lettre :
+{{#each listePremiereLettreNom}}
+	<a href="/repertoirePilote/{{this.premiere_lettre}}">{{this.premiere_lettre}}</a>
+{{/each}}
+</center>
+<br/>
+<center>
+{{#each listePiloteParNom}}
+    <div class="listerPilotes">
+        <a href="/repertoirePilote/detailPilote/{{this.pilnum}}">
+            <img src="/image/pilote/{{this.phoadresse}}" width="100" alt="pilote"/>
+        </a>
+        <br/>
+        {{this.pilprenom}}
+        <br/>
+        {{this.pilnom}}
+    </div>
+{{/each}}
+</center>
+
+<br class="myboth" />
