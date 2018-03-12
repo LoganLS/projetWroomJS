@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+	<title>{{title}}</title>
+	<meta charset="UTF-8" />
+	<link rel="icon" type="image/x-icon" href="/image/favicon.png" />
+
+	<link rel="stylesheet" href="/css/structure.css" />
+	<link rel="stylesheet" href="/css/infobulle.css" />
+    <link rel="stylesheet" href="/css/{{css}}.css" />
+
+    <script type="text/javascript" src="/js/jquery.js" /></script>
+    <script type="text/javascript" src="/js/infobulle.js" /></script>
+</head>
+
+<body class="monBody">
+<div id="container">
+	<div id="header">
+	<img src="/image/staff_admin.jpg" alt="Administration Wroom" />
+	</div>
+	<div id="menu">
+		<a href="/menuPilotes">PILOTES</a> |
+		<a href="/menuCircuits">CIRCUITS</a> |
+		<a href="/menuEcuries">ECURIES</a> |
+		<a href="/menuResultats">RESULTATS</a> |
+		<a href="/menuSponsors">SPONSORS</a> |
+		<a href="/">Retour au site</a>
+	</div>
+	<div id="contenu">
+		<br/>
+		<br/>
+			{{{body}}}
+	</div>
+				<div id="footer">
+					L'encyclopédie de la F1 depuis janvier 2018 (en NodeJS)
+					<br />
+					© IUT du Limousin DUT Informatique année 2
+					<br />
+					<br />
+					Appllication réalisée par LE SAUX Logan et NADAUD Alexis
+                <br />
+					<img src="/image/nodejs.png" id= "LogoNode" alt="Logo NodeJs" title="Logo Node.JS" />
+			</div>
+
+</div>
+</body>
+</html>

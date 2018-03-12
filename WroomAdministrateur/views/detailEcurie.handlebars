@@ -1,0 +1,87 @@
+<!-- Detail d'un pilote -->
+<div>
+    <table class="tabpayscir">
+        {{#each listeEcurie}}
+            <tr><td><img src="/image/pays/{{this.payadrdrap}}" alt="drapeau du pays" />
+                <a href="/detailEcurie/{{this.ecunum}}"> {{this.ecunom}}</a>
+            </td></tr>
+        {{/each}}
+    </table>
+    <br class="myboth" />
+
+    <div style="display:inline">
+        <img style="float:left" src="/image/ecurie/{{infosEcurie.ECUADRESSEIMAGE}}" width="75" alt="ecurie"/>
+    </div>
+    <div style="display:inline">
+        <table>
+            <tr>
+                <td>
+                    <b>Nom : </b>{{infosEcurie.ECUNOM}}
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <b>Directeur : </b>{{infosEcurie.ECUNOMDIR}}
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <b>Adresse : </b>{{infosEcurie.ECUADRSIEGE}}
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <b>Pays : </b>{{infosEcurie.PAYNOM}}
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <b>Fournisseur pneu : </b>{{infosEcurie.FPNOM}}
+                </td>
+            </tr>
+        <tr>
+
+
+            {{#if infosPilotes}}
+                <td><b>Pilotes : </b></td>
+                {{#each infosPilotes}}
+                    <tr>
+                    <td>
+                        <a href="#" class="bulle" title="<img style='float:left' src='/image/pilote/{{this.PHOADRESSE}}' height='50' alt='pilote'/>"><p>{{this.PILNOM}} {{this.PILPRENOM}}</p></a>
+                    </td>
+                    </tr>
+
+                {{/each}}
+                {{#if infosVoitures}}
+
+                                            {{#each infosVoitures}}
+                                                <tr>
+                                                <td>
+                                                    <img style="float:left" src="/image/ecurie/voiture/{{this.VOIADRESSEIMAGE}}" width="75" alt="voiture"/>
+                                                </td>
+                                                <td>
+                                                    <p>{{this.VOINOM}}</p>
+                                                </td>
+                                                <td>
+                                                    <p>{{this.TYPELIBELLE}}</p>
+                                                </td>
+                                                </tr>
+
+                                            {{/each}}
+                                        {{/if}}
+            {{else}}
+                <tr>
+                    <td>
+                        <b> Cette écurie ne participe pas au championnat cette année.</b>
+                    </td>
+                </tr>
+            {{/if}}
+
+
+        </tr>
+
+        </table>
+    </div>
+    <br/>
+
+<br class="myboth" />

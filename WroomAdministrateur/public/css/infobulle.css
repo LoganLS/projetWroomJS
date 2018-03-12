@@ -1,0 +1,7 @@
+.infobulle {
+    position:absolute;
+    background-color : black;
+    padding : 5px;
+    border-radius: 2px;
+    color: #d4d4d4;
+}
