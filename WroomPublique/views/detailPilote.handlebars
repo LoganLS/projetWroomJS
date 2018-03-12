@@ -1,3 +1,5 @@
+<script type="text/javascript" language="javascript" src="lytebox/lytebox.js"></script>
+<link rel="stylesheet" href="lytebox/lytebox.css" type="text/css" media="screen" />
 <!-- Detail d'un pilote -->
 <div>
     <center>
@@ -62,7 +64,7 @@
 <!-- Photos -->
 <div>
     {{#each photosPilote}}
-        <img src="/image/pilote/{{this.phoadresse}}" width="100" alt="photo pilote"/>
+        <img src="/image/pilote/{{this.phoadresse}}" title="{{this.phosujet}}" width="100" alt="photo pilote"/>
     {{/each}}
 </div>
 
