@@ -1,9 +1,9 @@
 let model = require('../models/ecurie.js');
 var async=require('async');
-   // //////////////////////// L I S T E R  E C U R I E S
+// //////////////////////// L I S T E R  E C U R I E S
 
 module.exports.ListerEcurie = function(request, response){
-   response.title = 'Liste des écuries';
+    response.title = 'Liste des écuries';
     model.getListeEcurie(function (err, result) {
         if (err) {
             // gestion de l'erreur
@@ -12,7 +12,7 @@ module.exports.ListerEcurie = function(request, response){
         }
         response.listeEcurie = result;
         response.render('listerEcurie', response);
-	});
+    });
 }
 
 module.exports.DetailEcurie = function(request,response){
@@ -35,7 +35,12 @@ module.exports.DetailEcurie = function(request,response){
                 model.getPiloteNumEcurie(num, function(err,result){
                     callback(null,result);
                 });
-            }, //fin callback2
+            },
+            function(callback){
+                model.getVoitureNumEcurie(num, function(err,result){
+                    callback(null,result);
+                });
+            },//fin callback3
 
         ],
         function(err,result){
@@ -46,7 +51,8 @@ module.exports.DetailEcurie = function(request,response){
             response.listeEcurie= result[0];
             response.infosEcurie = result[1][0];
             response.infosPilotes = result[2];
-            console.log(result[2]);
+            response.infosVoitures = result[3];
+            console.log(result[3]);
             response.render('detailEcurie',response);
         }
     );//fin async

@@ -12,20 +12,20 @@ let db = require('../configDb');
 * @return Un tableau qui contient le N°, le nom de l'écurie et le nom de la photo du drapeau du pays
 */
 module.exports.getListeEcurie = function (callback) {
-   // connection à la base
-	db.getConnection(function(err, connexion){
+    // connection à la base
+    db.getConnection(function(err, connexion){
         if(!err){
-        	  // s'il n'y a pas d'erreur de connexion
-        	  // execution de la requête SQL
-						let sql ="SELECT ecunum, payadrdrap, ecunom FROM ecurie e INNER JOIN pays p ";
-						sql= sql + "ON p.paynum=e.paynum ORDER BY ecunom";
-						//console.log (sql);
+            // s'il n'y a pas d'erreur de connexion
+            // execution de la requête SQL
+            let sql ="SELECT ecunum, payadrdrap, ecunom FROM ecurie e INNER JOIN pays p ";
+            sql= sql + "ON p.paynum=e.paynum ORDER BY ecunom";
+            //console.log (sql);
             connexion.query(sql, callback);
 
             // la connexion retourne dans le pool
             connexion.release();
-         }
-      });
+        }
+    });
 };
 
 module.exports.getPiloteNumEcurie=function(num,callback){
@@ -34,7 +34,22 @@ module.exports.getPiloteNumEcurie=function(num,callback){
         if(!err){
             // s'il n'y a pas d'erreur de connexion
             // execution de la requete SQL
-            let sql="SELECT PILNOM, PILPRENOM FROM pilote WHERE ECUNUM = " + num + " ";
+            let sql="SELECT p.PILNOM, p.PILPRENOM, ph.PHOADRESSE FROM pilote p, photo ph WHERE p.PILNUM = ph.PILNUM AND ph.PHONUM=1 AND ECUNUM = " + num + " ";
+            connexion.query(sql, callback);
+
+            // la connexion retourne dans le pool
+            connexion.release();
+        }
+    });
+};
+
+module.exports.getVoitureNumEcurie=function(num,callback){
+    // connection a la base
+    db.getConnection(function(err, connexion){
+        if(!err){
+            // s'il n'y a pas d'erreur de connexion
+            // execution de la requete SQL
+            let sql="SELECT v.VOINOM, v.VOIADRESSEIMAGE, tv.TYPELIBELLE FROM voiture v, type_voiture tv WHERE v.TYPNUM = tv.TYPNUM AND v.ECUNUM = " + num + " ";
             connexion.query(sql, callback);
 
             // la connexion retourne dans le pool
@@ -58,3 +73,4 @@ module.exports.getInfosEcuries=function(num, callback){
         }
     });
 };
+
