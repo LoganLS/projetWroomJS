@@ -25,6 +25,7 @@ module.exports = function(app){
 
  //Résultats
    app.get('/resultats', ResultatController.ListerResultats);
+   app.get('/detailResultat/:numGp', ResultatController.DetailResultat);
 
 // tout le reste
   app.get('*', HomeController.Index);

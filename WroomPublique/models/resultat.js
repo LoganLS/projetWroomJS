@@ -22,51 +22,18 @@ module.exports.getListeGrandPrix = function (callback) {
         }
     });
 };
-/*
-module.exports.getPiloteNumEcurie=function(num,callback){
+
+module.exports.getResultatGrandPrix=function(num,callback){
     // connection a la base
     db.getConnection(function(err, connexion){
         if(!err){
             // s'il n'y a pas d'erreur de connexion
             // execution de la requete SQL
-            let sql="SELECT p.PILNOM, p.PILPRENOM, ph.PHOADRESSE FROM pilote p, photo ph WHERE p.PILNUM = ph.PILNUM AND ph.PHONUM=1 AND ECUNUM = " + num + " ";
+            let sql="SELECT p.PILNOM, p.PILPRENOM, c.TEMPSCOURSE FROM pilote p, course c WHERE p.PILNUM = c.PILNUM  AND c.GPNUM = " + num + " ORDER BY c.TEMPSCOURSE ASC";
             connexion.query(sql, callback);
-
+            console.log(sql);
             // la connexion retourne dans le pool
             connexion.release();
         }
     });
 };
-
-module.exports.getVoitureNumEcurie=function(num,callback){
-    // connection a la base
-    db.getConnection(function(err, connexion){
-        if(!err){
-            // s'il n'y a pas d'erreur de connexion
-            // execution de la requete SQL
-            let sql="SELECT v.VOINOM, v.VOIADRESSEIMAGE, tv.TYPELIBELLE FROM voiture v, type_voiture tv WHERE v.TYPNUM = tv.TYPNUM AND v.ECUNUM = " + num + " ";
-            connexion.query(sql, callback);
-
-            // la connexion retourne dans le pool
-            connexion.release();
-        }
-    });
-};
-
-module.exports.getInfosEcuries=function(num, callback){
-    // connection a la base
-    db.getConnection(function(err, connexion){
-        if(!err){
-            // s'il n'y a pas d'erreur de connexion
-            // execution de la requete SQL
-            let sql="SELECT e.ECUNOM, e.ECUNOMDIR, e.ECUADRSIEGE, p.PAYNOM, fp.FPNOM, e.ECUADRESSEIMAGE FROM ecurie e, pays p, fourn_pneu fp WHERE" +
-                " e.PAYNUM = p.PAYNUM AND e.FPNUM = fp.FPNUM AND e.ECUNUM = " + num;
-            connexion.query(sql, callback);
-
-            // la connexion retourne dans le pool
-            connexion.release();
-        }
-    });
-};
-
-*/
