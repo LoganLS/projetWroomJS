@@ -29,9 +29,8 @@ module.exports.getResultatGrandPrix=function(num,callback){
         if(!err){
             // s'il n'y a pas d'erreur de connexion
             // execution de la requete SQL
-            let sql="SELECT p.PILNOM, p.PILPRENOM, c.TEMPSCOURSE FROM pilote p, course c WHERE p.PILNUM = c.PILNUM  AND c.GPNUM = " + num + " ORDER BY c.TEMPSCOURSE ASC";
+            let sql="SELECT DISTINCT p.PILNOM, p.PILPRENOM, c.TEMPSCOURSE FROM pilote p, course c WHERE p.PILNUM = c.PILNUM  AND c.GPNUM = " + num + " ORDER BY c.TEMPSCOURSE ASC";
             connexion.query(sql, callback);
-            console.log(sql);
             // la connexion retourne dans le pool
             connexion.release();
         }

@@ -35,6 +35,8 @@ module.exports.DetailResultat = function(request,response){
             }, //fin callback1
 
 
+
+
         ],
         function(err,result){
             if(err){
