@@ -10,7 +10,7 @@ module.exports = function(app){
 
 // Main Routes
     app.get('/',ConnexionController.connexion);
-    app.get('/homeAdministration', HomeController.Index);
+    app.post('/homeAdministration', HomeController.Index);
 
 // pilotes
     app.get('/menuPilotes',PiloteController.menuPilote);

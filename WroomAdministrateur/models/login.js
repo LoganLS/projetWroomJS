@@ -7,13 +7,13 @@ function sha1(data) {
      return generator.digest('hex') 
 }
 
-module.exports.connexion = function (login,passwd,callback) {
+module.exports.getConnection = function (login,passwd,callback) {
    // connection à la base
 	db.getConnection(function(err, connexion){
         if(!err){
         	  // s'il n'y a pas d'erreur de connexion
         	  // execution de la requête SQL
-						let sql="SELECT login from login WHERE login="+login+" AND passwd="+sha1(passwd);
+						let sql="SELECT login from login WHERE login='"+login+"' AND passwd='"+sha1(passwd)+"'";
 						console.log(sql);
             connexion.query(sql, callback);
 
