@@ -4,6 +4,7 @@ let EcurieController = require('./../controllers/EcurieController');
 let PiloteController = require('./../controllers/PiloteController');
 let CircuitController = require('./../controllers/CircuitController');
 let ConnexionController = require('./../controllers/ConnexionController');
+let SponsorController = require('./../controllers/SponsorController');
 
 // Routes
 module.exports = function(app){
@@ -33,8 +34,10 @@ module.exports = function(app){
     app.get('/detailEcurie/:numEcurie', EcurieController.DetailEcurie);
 
  //Résultats
-   //app.get('/menuResultats', ResultatController.ListerGrandPrix);
    //app.get('/resultats', ResultatController.ListerResultat);
+    
+//Sponsors
+    app.get('/menuSponsors', SponsorController.menuSponsor);
     
 
 
