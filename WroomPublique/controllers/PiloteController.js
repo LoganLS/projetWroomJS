@@ -19,15 +19,6 @@ module.exports.Repertoire = function(request, response){
 module.exports.listeNom=function(request,response){
     response.title='Liste Pilotes';
 	var lettre=request.params.lettreNom;
-	/*model.getListePiloteParNom(lettre,function(err,result){
-	   if(err){
-           console.log(err);
-           return;
-       } 
-        response.listePiloteParNom=result;
-        console.log(result);
-        response.render('listePiloteLettre',response);
-    });*/
     
     async.parallel([
         function(callback){
