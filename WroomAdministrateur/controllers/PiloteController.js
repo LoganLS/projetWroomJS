@@ -1,4 +1,7 @@
 let model=require('../models/pilote.js');
+let modelEcurie=require('../models/ecurie.js');
+let modelPays=require('../models/pays.js');
+
 var async=require('async');
 // ///////////////////////// R E P E R T O I R E    D E S    P I L O T E S
 
@@ -125,13 +128,13 @@ module.exports.pageAjouterPilote = function(request, response){
     response.css="admin";
     async.parallel([
         function(callback){
-            model.getAllNationalite(function(err,result){
+            modelPays.getAllNationalite(function(err,result){
                callback(null,result);
             });
         }, //fin callback0
         
         function(callback){
-            model.getAllEcurie(function(err,result){
+            modelEcurie.getAllEcurie(function(err,result){
                callback(null,result);
             });
         }, //fin callback1
@@ -166,13 +169,13 @@ module.exports.pageModifierPilote = function(request, response){
         }, //fin callback1
         
         function(callback){
-            model.getAllNationalite(function(err,result){
+            modelPays.getAllNationalite(function(err,result){
                callback(null,result);
             });
         }, //fin callback2
         
         function(callback){
-            model.getAllEcurie(function(err,result){
+            modelEcurie.getAllEcurie(function(err,result){
                callback(null,result);
             });
         }, //fin callback3

@@ -52,8 +52,24 @@ module.exports.getListePiloteParNom=function(lettre,callback){
 module.exports.getInformationsOfOnePilote=function(id,callback){
 	db.getConnection(function(err,connexion){
 		if(!err){
-			let sql="SELECT p.pilnom,p.pilprenom,p.pildatenais,p.pilpoids,p.piltaille,p.piltexte,p.pilpoints,p2.paynat,p2.paynum,p3.phoadresse FROM pilote p INNER JOIN pays p2 INNER JOIN photo p3 ";
+			let sql="SELECT p.pilnum,p.pilnom,p.pilprenom,p.pildatenais,p.pilpoids,p.piltaille,p.piltexte,p.pilpoints,p2.paynat,p2.paynum,p3.phoadresse FROM pilote p INNER JOIN pays p2 INNER JOIN photo p3 ";
 			sql+="WHERE p.paynum=p2.paynum AND p.pilnum=p3.pilnum AND p3.phonum=1 AND p.pilnum="+id;
+			console.log(sql);
+			connexion.query(sql,callback);
+			connexion.release();
+		}
+	});
+};
+
+/*
+* @Param : id du pilote
+* @Return les informations d'un pilote : nom,prénom,date naissance,poids,taille,description,nationalité,photo
+*/
+module.exports.getInformationsPilote=function(id,callback){
+	db.getConnection(function(err,connexion){
+		if(!err){
+			let sql="SELECT p.pilnum,p.pilnom,p.pilprenom,p.pildatenais,p.pilpoids,p.piltaille,p.piltexte,p.pilpoints,p2.paynat,p2.paynum FROM pilote p INNER JOIN pays p2 ";
+			sql+="WHERE p.paynum=p2.paynum AND p.pilnum="+id;
 			console.log(sql);
 			connexion.query(sql,callback);
 			connexion.release();
@@ -134,48 +150,22 @@ module.exports.getMenuPilote=function(callback){
       });
 };
 
-/*module.exports.ajouterPilote=function(numpays,nom,prenom,datenaiss,points,poids,taille,description,numecu,callback){
-	db.getConnection(function(err,connexion){
-		if(!err){
-			let sql="INSERT INTO pilote (paynum,pilnom,pilprenom,pildatenais,pilpigiste,pilpoints,pilpoids,piltaille,piltexte,ecunum) ";
-			sql+="VALUES("+numpays+","+nom+","+prenom+","+datenaiss+",0,"+points+","+poids+","+taille+","+description+","+numecu+")";
-			console.log(sql);
-			connexion.query(sql,callback)
-			connexion.release();
-		}
-	});
-};*/
-
 module.exports.ajouterPilote=function(values,callback){
 	db.getConnection(function(err,connexion){
 		if(!err){
 			let sql="INSERT INTO pilote (paynum,pilnom,pilprenom,pildatenais,pilpigiste,pilpoints,pilpoids,piltaille,piltexte,ecunum) ";
-			sql+="VALUES("+values+")";
-			console.log(sql);
-			//connexion.query(sql,callback)
-			connexion.release();
-		}
-	});
-};
-
-module.exports.getAllNationalite=function(callback){
-	db.getConnection(function(err,connexion){
-		if(!err){
-			let sql="SELECT paynum,paynat FROM pays ";
-			sql+="ORDER BY paynat";
-			console.log(sql);
+			sql+="VALUES("+values.nationalite+",'"+values.nom+"','"+values.prenom+"','"+values.datenaissance+"',0,"+values.points+","+values.poids+","+values.taille+",'"+values.description+"',"+values.ecurie+")";
 			connexion.query(sql,callback)
 			connexion.release();
 		}
 	});
 };
 
-module.exports.getAllEcurie=function(callback){
+module.exports.modifierPilote=function(num,values,callback){
 	db.getConnection(function(err,connexion){
 		if(!err){
-			let sql="SELECT ecunum,ecunom FROM ecurie ";
-			sql+="ORDER BY ecunom";
-			console.log(sql);
+			let sql="UPDATE pilote SET paynum="+values.nationalite+",pilnom='"+values.nom+"',pilprenom='"+values.prenom+"',pildatenais='"+values.datenaissance+"',pilpigiste=0,pilpoints="+values.points+",pilpoids="+values.poids+",piltaille="+values.taille+",piltexte='"+values.description+"',ecunum="+values.ecurie+" ";
+			sql+="WHERE pilnum="+num;
 			connexion.query(sql,callback)
 			connexion.release();
 		}

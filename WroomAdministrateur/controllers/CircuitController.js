@@ -1,4 +1,5 @@
 let model=require('../models/circuit.js');
+let modelPays=require('../models/pays.js');
 var async=require('async');
 // ////////////////////// L I S T E R     C I R C U I T S
 
@@ -73,7 +74,7 @@ module.exports.menuCircuit = function(request, response){
 module.exports.pageAjouterCircuit = function(request, response){
     response.title = 'Ajouter un circuit';    
     response.css="admin";
-	model.getAllPays(function(err,result){
+	modelPays.getAllPays(function(err,result){
 		if (err) {
             // gestion de l'erreur
             console.log(err);
@@ -98,7 +99,7 @@ module.exports.pageModifierCircuit = function(request, response){
         }, //fin callback0
         
         function(callback){
-            model.getAllPays(function(err,result){
+            modelPays.getAllPays(function(err,result){
                callback(null,result);
             });
         }, //fin callback1

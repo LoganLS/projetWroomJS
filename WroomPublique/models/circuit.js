@@ -25,7 +25,7 @@ module.exports.getListeCircuit = function (callback) {
 module.exports.getInfosCircuit = function (num,callback) {
 	db.getConnection(function(err, connexion){
         if(!err){
-			let sql ="SELECT cirnom,cirlongueur, cirnbspectateurs, ciradresseimage,cirtext,p.paynum,paynom FROM circuit c INNER JOIN pays p ";
+			let sql ="SELECT cirnum,cirnom,cirlongueur, cirnbspectateurs, ciradresseimage,cirtext,p.paynum,paynom FROM circuit c INNER JOIN pays p ";
 			sql+= "ON p.paynum=c.paynum ";
 			sql+="WHERE cirnum="+num;
             connexion.query(sql, callback);
@@ -46,14 +46,37 @@ module.exports.getMenuCircuit = function (callback) {
       });
 };
 
-module.exports.getAllPays = function (callback) {
-	db.getConnection(function(err, connexion){
-        if(!err){
-			let sql ="SELECT paynum,paynom FROM pays ";
-			sql+="ORDER BY paynom";
-            connexion.query(sql, callback);
+module.exports.ajouterCircuit=function(values,callback){
+	db.getConnection(function(err,connexion){
+		if(!err){
+			let sql="INSERT INTO circuit (paynum,cirnom,cirlongueur,cirnbspectateurs,ciradresseimage,cirtext) ";
+			sql+="VALUES("+values.pays+",'"+values.nom+"',"+values.longueur+","+values.spectateur+",'"+values.adresseImage+"','"+values.description+"')";
+			connexion.query(sql,callback)
+			connexion.release();
+		}
+	});
+};
 
-            connexion.release();
-         }
-      });
+module.exports.modifierCircuit=function(num,values,callback){
+	db.getConnection(function(err,connexion){
+		if(!err){
+			let sql="UPDATE circuit SET paynum="+values.pays+",cirnom='"+values.nom+"',cirlongueur="+values.longueur+",cirnbspectateurs="+values.spectateur+",ciradresseimage='"+values.adresseImage+"',cirtext='"+values.description+"' ";
+			sql+="WHERE cirnum="+num;
+			connexion.query(sql,callback)
+			connexion.release();
+		}
+	});
+};
+
+module.exports.supprimerCircuit=function(num,callback){
+	db.getConnection(function(err,connexion){
+		if(!err){
+			let sql="DELETE FROM course WHERE gpnum IN (SELECT gpnum FROM course WHERE pilnum="+num+") ";
+			sql+="DELETE FROM essais WHERE gpnum IN (SELECT gpnum FROM essais WHERE pilnum="+num+") ";
+			sql+="DELETE FROM grandprix,circuit ";
+			sql+="WHERE cirnum="+num;
+			connexion.query(sql,callback)
+			connexion.release();
+		}
+	});
 };
