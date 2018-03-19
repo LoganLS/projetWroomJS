@@ -64,7 +64,7 @@ module.exports.getInfosEcuries=function(num, callback){
         if(!err){
             // s'il n'y a pas d'erreur de connexion
             // execution de la requete SQL
-            let sql="SELECT e.ECUNOM, e.ECUNOMDIR, e.ECUADRSIEGE, e.ECUPOINTS, p.PAYNOM, fp.FPNOM, e.ECUADRESSEIMAGE FROM ecurie e, pays p, fourn_pneu fp WHERE" +
+            let sql="SELECT e.ECUNUM, e.ECUNOM, e.ECUNOMDIR, e.ECUADRSIEGE, e.ECUPOINTS, p.PAYNOM, fp.FPNOM, e.ECUADRESSEIMAGE FROM ecurie e, pays p, fourn_pneu fp WHERE" +
                 " e.PAYNUM = p.PAYNUM AND e.FPNUM = fp.FPNUM AND e.ECUNUM = " + num;
             connexion.query(sql, callback);
 
@@ -100,4 +100,26 @@ module.exports.getAllEcurie=function(callback){
 			connexion.release();
 		}
 	});
+};
+
+module.exports.ajouterEcurie=function(values,callback){
+    db.getConnection(function(err,connexion){
+        if(!err){
+            let sql="INSERT INTO ecurie (ECUNOM, ECUNOMDIR, ECUADRSIEGE, ECUPOINTS, PAYNUM, ECUADRESSEIMAGE) ";
+            sql+="VALUES("+values.nom+"',"+values.nomdir+","+values.adressesiege+",'"+values.nbpoints+"','"+values.pays+"','"+values.image+"')";
+            connexion.query(sql,callback)
+            connexion.release();
+        }
+    });
+};
+
+module.exports.modifierEcurie=function(num,values,callback){
+    db.getConnection(function(err,connexion){
+        if(!err){
+            let sql="UPDATE ecurie SET paynum="+values.pays+",cirnom='"+values.nom+"',cirlongueur="+values.longueur+",cirnbspectateurs="+values.spectateur+",ciradresseimage='"+values.adresseImage+"',cirtext='"+values.description+"' ";
+            sql+="WHERE cirnum="+num;
+            connexion.query(sql,callback)
+            connexion.release();
+        }
+    });
 };
