@@ -74,7 +74,6 @@ module.exports.getInfosEcuries=function(num, callback){
     });
 };
 
-
 module.exports.getMenuEcurie=function(callback){
     // connection a la base
     db.getConnection(function(err, connexion){
@@ -89,4 +88,16 @@ module.exports.getMenuEcurie=function(callback){
             connexion.release();
         }
     });
+};
+
+module.exports.getAllEcurie=function(callback){
+	db.getConnection(function(err,connexion){
+		if(!err){
+			let sql="SELECT ecunum,ecunom FROM ecurie ";
+			sql+="ORDER BY ecunom";
+			console.log(sql);
+			connexion.query(sql,callback)
+			connexion.release();
+		}
+	});
 };

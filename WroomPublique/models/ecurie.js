@@ -73,3 +73,19 @@ module.exports.getInfosEcuries=function(num, callback){
         }
     });
 };
+<<<<<<< HEAD
+=======
+
+module.exports.getAllEcurie=function(callback){
+	db.getConnection(function(err,connexion){
+		if(!err){
+			let sql="SELECT ecunum,ecunom FROM ecurie ";
+			sql+="ORDER BY ecunom";
+			console.log(sql);
+			connexion.query(sql,callback)
+			connexion.release();
+		}
+	});
+};
+
+>>>>>>> bc3c3f4aea471bab34503c53893e4f0cb8e57342
