@@ -195,7 +195,7 @@ module.exports.pageModifierPilote = function(request, response){
  }
 
 module.exports.pageSupprimerPilote = function(request, response){
-	response.title = 'Ajouter un pilote';
+	response.title = 'Supprimer un pilote';
     response.css="admin";
     var num=request.params.numPilote;
     

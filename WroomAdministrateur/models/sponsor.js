@@ -16,3 +16,26 @@ module.exports.getMenuSponsor=function(callback){
          }
       });
 };
+
+module.exports.getInfosSponsor = function (num,callback) {
+	db.getConnection(function(err, connexion){
+        if(!err){
+			let sql ="SELECT sponum,sponom,sposectactivite FROM sponsor ";
+			sql+="WHERE sponum="+num;
+            connexion.query(sql, callback);
+            connexion.release();
+         }
+      });
+};
+
+module.exports.getEcurieSponsor = function (num,callback) {
+	db.getConnection(function(err, connexion){
+        if(!err){
+			let sql ="SELECT e.ecunum,ecunom FROM ecurie e INNER JOIN finance f ";
+			sql+="ON e.ecunum=f.ecunum ";
+			sql+="WHERE sponum="+num;
+            connexion.query(sql, callback);
+            connexion.release();
+         }
+      });
+};
