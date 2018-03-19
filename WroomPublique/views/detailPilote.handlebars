@@ -63,9 +63,13 @@
     
 <!-- Photos -->
 <div>
-    {{#each photosPilote}}
-        <img src="/image/pilote/{{this.phoadresse}}" title="{{this.phosujet}}" width="100" alt="photo pilote"/>
-    {{/each}}
+    <center>
+        {{#each photosPilote}}
+            <a href="/image/pilote/{{this.phoadresse}}" rel="lytebox[vacation]" title="{{this.phosujet}} : {{this.phocommentaire}}">
+                <img src="/image/pilote/{{this.phoadresse}}" alt="Photo de {{../this.pilprenom}} {{../this.pilnom}}" width="100">
+            </a>
+        {{/each}}
+    </center>
 </div>
 
 <br class="myboth" />
