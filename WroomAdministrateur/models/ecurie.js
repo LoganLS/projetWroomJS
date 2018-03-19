@@ -64,7 +64,7 @@ module.exports.getInfosEcuries=function(num, callback){
         if(!err){
             // s'il n'y a pas d'erreur de connexion
             // execution de la requete SQL
-            let sql="SELECT e.ECUNOM, e.ECUNOMDIR, e.ECUADRSIEGE, p.PAYNOM, fp.FPNOM, e.ECUADRESSEIMAGE FROM ecurie e, pays p, fourn_pneu fp WHERE" +
+            let sql="SELECT e.ECUNOM, e.ECUNOMDIR, e.ECUADRSIEGE, e.ECUPOINTS, p.PAYNOM, fp.FPNOM, e.ECUADRESSEIMAGE FROM ecurie e, pays p, fourn_pneu fp WHERE" +
                 " e.PAYNUM = p.PAYNUM AND e.FPNUM = fp.FPNUM AND e.ECUNUM = " + num;
             connexion.query(sql, callback);
 

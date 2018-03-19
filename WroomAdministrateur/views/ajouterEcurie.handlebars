@@ -1,14 +1,11 @@
-<center><h1>Ajouter un Pilote</h1></center>
+<center><h1>Ajouter une écurie</h1></center>
 
-<form action="/menuPilotes/ajouterPilote/ajout" method="post">
+<form action="/menuPilotes/ajouterEcurie/ajout" method="post">
     <table>
         
         <tr><td>Nom</td><td><input type="text" name="nom" required/></td></tr>
         <tr><td>Directeur</td><td><input type="text" name="directeur" required/></td></tr>
         <tr><td>Adresse du siege</td><td><input type="text" name="adresse" required/></td></tr>
-        </tr>
-        <tr>
-            <td>Points</td><td><input type="text" name="nbPoints" required/></td></tr><td> pts</td>
         </tr>
         <tr>
             <td>Pays </td><td>
@@ -20,10 +17,11 @@
             </td>
         </tr>
         <tr><td>Points</td><td><input type="number" name="points" min="0" required/> pts</td></tr>
-        <tr><td>Poids</td><td><input type="number" name="poids"  min="0" required/> kg</td></tr>
-        <tr><td>Taille</td><td><input type="number" name="taille"  min="0" required/> cm</td></tr>
-        <tr><td>Description</td><td><textarea name="description" cols="75" rows="5" required></textarea></td></tr>
-        
+        <tr><td>Image</td>
+            <td>
+                <input type="file" name="adresseImage" required/>
+            </td>
+        </tr>
     </table>
         
     <br/><br/>
