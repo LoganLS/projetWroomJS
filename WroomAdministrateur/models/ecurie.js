@@ -74,6 +74,22 @@ module.exports.getInfosEcuries=function(num, callback){
     });
 };
 
+module.exports.getMenuEcurie=function(callback){
+    // connection a la base
+    db.getConnection(function(err, connexion){
+        if(!err){
+            // s'il n'y a pas d'erreur de connexion
+            // execution de la requete SQL
+            let sql="SELECT e.ECUNUM, e.ECUNOM, e.ECUNOMDIR, e.ECUPOINTS  FROM ecurie e ORDER BY e.ECUNOM";
+            console.log(sql);
+            connexion.query(sql, callback);
+
+            // la connexion retourne dans le pool
+            connexion.release();
+        }
+    });
+};
+
 module.exports.getAllEcurie=function(callback){
 	db.getConnection(function(err,connexion){
 		if(!err){
@@ -85,4 +101,3 @@ module.exports.getAllEcurie=function(callback){
 		}
 	});
 };
-

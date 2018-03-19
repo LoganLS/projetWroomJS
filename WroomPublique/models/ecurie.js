@@ -73,6 +73,8 @@ module.exports.getInfosEcuries=function(num, callback){
         }
     });
 };
+<<<<<<< HEAD
+=======
 
 module.exports.getAllEcurie=function(callback){
 	db.getConnection(function(err,connexion){
@@ -86,3 +88,4 @@ module.exports.getAllEcurie=function(callback){
 	});
 };
 
+>>>>>>> bc3c3f4aea471bab34503c53893e4f0cb8e57342

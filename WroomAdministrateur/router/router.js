@@ -30,9 +30,14 @@ module.exports = function(app){
     app.get('/menuCircuits/supprimerCircuit/:numCircuit',CircuitController.pageSupprimerCircuit);
 
 // Ecuries
-    app.get('/menuEcuries', EcurieController.ListerEcurie);
+    app.get('/menuEcurie', EcurieController.menuEcurie);
     app.get('/detailEcurie/:numEcurie', EcurieController.DetailEcurie);
-
+  /*  app.get('/menuEcurie/ajouterEcurie',EcurieController.pageAjouterEcurie);
+    app.post('/menuEcurie/ajouterEcurie/ajout',EcurieController.ajouterEcurie);
+    app.get('/menuEcurie/modifierEcurie/:numPilote',EcurieController.pageModifierEcurie);
+    app.post('/menuEcurie/modifierEcurie/:numPilote/modifier',EcurieController.modifierEcurie);
+    app.get('/menuEcurie/supprimerEcurie/:numPilote',EcurieController.pageSupprimerEcurie);
+*/
  //Résultats
    //app.get('/resultats', ResultatController.ListerResultat);
     
