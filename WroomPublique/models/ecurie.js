@@ -73,4 +73,3 @@ module.exports.getInfosEcuries=function(num, callback){
         }
     });
 };
-

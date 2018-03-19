@@ -1,4 +1,5 @@
 let model = require('../models/ecurie.js');
+let model = require('../models/pays.js');
 var async=require('async');
 // //////////////////////// L I S T E R  E C U R I E S
 
@@ -54,6 +55,43 @@ module.exports.DetailEcurie = function(request,response){
             response.infosVoitures = result[3];
             console.log(result[3]);
             response.render('detailEcurie',response);
+        }
+    );//fin async
+}
+
+
+module.exports.menuEcurie = function(request, response){
+    response.title = 'Menu des Ecuries';
+    response.css="admin";
+    model.getMenuEcurie(function(err,result){
+        if (err) {
+            // gestion de l'erreur
+            console.log(err);
+            return;
+        }
+        response.menuEcurie = result;
+        console.log(result);
+        response.render('menuEcurie', response);
+    });
+}
+
+module.exports.pageAjouterEcurie = function(request, response){
+    response.title = 'Ajouter une écurie';
+    response.css="admin";
+    async.parallel([
+            function(callback){
+                model.getAllPays(function(err,result){
+                    callback(null,result);
+                });
+            }, //fin callback0
+        ],
+        function(err,result){
+            if(err){
+                console.log(err);
+                return;
+            }
+            response.listePays=result[0];
+            response.render('ajouterEcurie',response);
         }
     );//fin async
 }
