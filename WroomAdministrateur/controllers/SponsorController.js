@@ -126,16 +126,6 @@ module.exports.modifierSponsor = function(request, response){
     
     console.log(post);
     
-    model.ajouterSponsor(post,function(err,result){
-		if(err){
-            console.log(err);
-            return;
-        }
-        response.ajoutSponsor=result[0];	
-        console.log(result);
-        response.render('ajout',response);
-	});
-    
     async.parallel([
         function(callback){
             model.modifierSponsor(numSponsor,post,function(err,result){
@@ -143,14 +133,14 @@ module.exports.modifierSponsor = function(request, response){
             });
         }, //fin callback0
         
-        function(callback){
+        /*function(callback){
             if(numEcurie!=0){
                 model.modifierFinance(numSponsor,numEcurie,function(err,result){
                    callback(null,result);
                 });
              }
         }, //fin callback1
-        
+        */
     ],
         function(err,result){
             if(err){
@@ -158,8 +148,59 @@ module.exports.modifierSponsor = function(request, response){
                 return;
             }
             response.modifSponsor=result[0];
-            response.modifEcurieSponsor=result[1];
+            //response.modifEcurieSponsor=result[1];
             response.render('modif',response);
+        }
+    );//fin async
+ }
+
+module.exports.pageSupprimerSponsor = function(request, response){
+	response.title = 'Supprimer un sponsor';
+    response.css="admin";
+    var num=request.params.numSponsor;
+    
+	model.supprimerSponsor(num,function(err,result){
+		if (err) {
+            // gestion de l'erreur
+            console.log(err);
+            return;
+        }
+        response.render('supprimer', response);
+	});
+ }
+
+module.exports.pageSupprimerSponsor = function(request, response){
+	response.title = 'Sponsor supprimé';
+    response.css="admin";
+    var numSponsor=request.params.numSponsor;
+    
+    async.parallel([
+        function(callback){
+            model.supprimerSponsorTableSponsorise(numSponsor,function(err,result){
+               callback(null,result);
+            });
+        }, //fin callback0
+        
+        function(callback){
+            model.supprimerSponsorTableFinance(numSponsor,function(err,result){
+               callback(null,result);
+            });
+        }, //fin callback1
+        
+        function(callback){
+            model.supprimerSponsorTableSponsor(numSponsor,function(err,result){
+               callback(null,result);
+            });
+        }, //fin callback2
+        
+    ],
+        function(err,result){
+            if(err){
+                console.log(err);
+                return;
+            }
+
+            response.render('supprimer',response);
         }
     );//fin async
  }

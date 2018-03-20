@@ -46,7 +46,8 @@ module.exports.ajouterSponsor=function(values,callback){
 	db.getConnection(function(err,connexion){
 		if(!err){
 			let sql="INSERT INTO sponsor (SPONOM,SPOSECTACTIVITE) ";
-			sql+="VALUES("+values.nom+",'"+values.activite+"')";
+			sql+="VALUES('"+values.nom+"','"+values.activite+"')";
+			console.log(sql);
 			connexion.query(sql,callback)
 			connexion.release();
 		}
@@ -56,8 +57,9 @@ module.exports.ajouterSponsor=function(values,callback){
 module.exports.modifierSponsor=function(num,values,callback){
 	db.getConnection(function(err,connexion){
 		if(!err){
-			let sql="UPDATE sponsor SET SPONUM="+values.nom+",SPOSECTACTIVITE='"+"' ";
+			let sql="UPDATE sponsor SET SPONUM='"+values.nom+"', SPOSECTACTIVITE='"+values.activite+"' ";
 			sql+="WHERE SPONUM="+num;
+			console.log(sql);
 			connexion.query(sql,callback)
 			connexion.release();
 		}
@@ -65,33 +67,69 @@ module.exports.modifierSponsor=function(num,values,callback){
 };
 
 module.exports.ajouterFinance=function(numeroEcurie,callback){
-	db.getConnection(function(err,connexion){
+	/*db.getConnection(function(err,connexion){
 		if(!err){
 			let sql="INSERT INTO finance (ECUNUM,SPONUM) ";
-			sql+="VALUES("+numeroEcurie+",'"+numeroSponsor+"')";
+			sql+="VALUES("+numeroEcurie+","+numeroSponsor+")";
+			console.log(sql);
 			connexion.query(sql,callback)
 			connexion.release();
 		}
-	});
+	});*/
 };
 
 module.exports.modifierFinance=function(numeroSponsor,numeroEcurie,callback){
 	db.getConnection(function(err,connexion){
 		if(!err){
-			let sql="UPDATE finance SET ECUNUM="+numeroEcurie+"' ";
+			let sql="UPDATE finance SET ECUNUM="+numeroEcurie+" ";
 			sql+="WHERE SPONUM="+numeroSponsor;
+			console.log(sql);
 			connexion.query(sql,callback)
 			connexion.release();
 		}
 	});
 };
 
-module.exports.supprimerSponsor=function(numeroSponsor,callback){
+/*module.exports.supprimerSponsor=function(numeroSponsor,callback){
 	db.getConnection(function(err,connexion){
 		if(!err){
 			let sql="DELETE FROM finance f WHERE f.SPONUM="+numeroSponsor;
 			sql+=" DELETE FROM sponsorise sp WHERE sp.SPONUM="+numeroSponsor;
 			sql+=" DELETE FROM sponsor s WHERE s.SPONUM="+numeroSponsor;
+			console.log(sql);
+			connexion.query(sql,callback)
+			connexion.release();
+		}
+	});
+};*/
+
+module.exports.supprimerSponsorTableSponsor=function(numeroSponsor,callback){
+	db.getConnection(function(err,connexion){
+		if(!err){
+			let sql=" DELETE FROM sponsor s WHERE s.SPONUM="+numeroSponsor;
+			console.log(sql);
+			connexion.query(sql,callback)
+			connexion.release();
+		}
+	});
+};
+
+module.exports.supprimerSponsorTableFinance=function(numeroSponsor,callback){
+	db.getConnection(function(err,connexion){
+		if(!err){
+			let sql="DELETE FROM finance f WHERE f.SPONUM="+numeroSponsor;
+			console.log(sql);
+			connexion.query(sql,callback)
+			connexion.release();
+		}
+	});
+};
+
+module.exports.supprimerSponsorTableSponsorise=function(numeroSponsor,callback){
+	db.getConnection(function(err,connexion){
+		if(!err){
+			let sql=" DELETE FROM sponsorise sp WHERE sp.SPONUM="+numeroSponsor;
+			console.log(sql);
 			connexion.query(sql,callback)
 			connexion.release();
 		}

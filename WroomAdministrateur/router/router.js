@@ -47,7 +47,7 @@ module.exports = function(app){
     app.post('/menuSponsors/ajouterSponsor/ajout',SponsorController.ajouterSponsor);
     app.get('/menuSponsors/modifierSponsor/:numSponsor',SponsorController.pageModifierSponsor);
     app.post('/menuSponsors/modifierSponsor/:numSponsor/modifier',SponsorController.modifierSponsor);
-    //app.get('/menuSponsors/supprimerSponsor/:numSponsor',SponsorController.pageSupprimerSponsor);
+    app.get('/menuSponsors/supprimerSponsor/:numSponsor',SponsorController.pageSupprimerSponsor);
     
 
 
