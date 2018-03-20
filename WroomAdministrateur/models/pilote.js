@@ -85,7 +85,7 @@ module.exports.getInformationsPilote=function(id,callback){
 module.exports.getAllPhotosOfOnePilote=function(id,callback){
 	db.getConnection(function(err,connexion){
 		if(!err){
-			let sql="SELECT phosujet,phocommentaire,phoadresse FROM photo ";
+			let sql="SELECT pilnum,phosujet,phocommentaire,phoadresse FROM photo ";
 			sql+="WHERE phonum<>1 AND pilnum="+id;
 			console.log(sql);
 			connexion.query(sql,callback);

@@ -65,8 +65,13 @@
 <div>
     <center>
         {{#each photosPilote}}
-            <a href="/image/pilote/{{this.phoadresse}}" rel="lytebox[vacation]" title="{{this.phosujet}} : {{this.phocommentaire}}">
-                <img src="/image/pilote/{{this.phoadresse}}" alt="Photo de {{../this.pilprenom}} {{../this.pilnom}}" width="100">
+            <a href="/repertoirePilote/detailPilote/{{this.phoadresse}}" class="tooltip">{{this.pilprenom}} {{this.pilnom}}
+                <span class="tooltiptext">
+                    <img src='/image/pilote/{{this.phoadresse}}' alt="Photo pilote" class="imagePilote">
+                </span>
+            </a><br>
+            <a href="/repertoirePilote/detailPilote/{{this.phoadresse}}" rel="lytebox[vacation]" title="{{this.phosujet}} : {{this.phocommentaire}}">
+                <img src="/image/pilote/{{this.phoadresse}}" alt="Photo pilote" width="100">
             </a>
         {{/each}}
     </center>
