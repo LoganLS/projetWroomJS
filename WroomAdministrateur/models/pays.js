@@ -15,7 +15,7 @@ module.exports.getAllNationalite=function(callback){
 module.exports.getAllPays = function (callback) {
 	db.getConnection(function(err, connexion){
         if(!err){
-			let sql ="SELECT paynum,paynom FROM pays ";
+			let sql ="SELECT PAYNUM, PAYNOM FROM pays ";
 			sql+="ORDER BY paynom";
             connexion.query(sql, callback);
 
@@ -23,3 +23,4 @@ module.exports.getAllPays = function (callback) {
          }
       });
 };
+

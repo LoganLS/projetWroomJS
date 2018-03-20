@@ -1,0 +1,30 @@
+<center><h1>Modifier une Ecurie</h1></center>
+
+<form action="/menuEcurie/modifierEcurie/{{infosEcurie.ECUNUM}}/modifier" method="post">
+    <table>
+        <tr><td>Nom</td><td><input type="text" name="nom" value="{{infosEcurie.ECUNOM}}" required/></td></tr>
+        <tr><td>Directeur</td><td><input type="text" name="directeur" value="{{infosEcurie.ECUNOMDIR}}" required/></td></tr>
+        <tr><td>Adresse du siege</td><td><input type="text" name="adresse" value="{{infosEcurie.ECUADRSIEGE}}" required/></td></tr>
+        </tr>
+        <tr>
+            <td>Pays </td><td>
+            <select name="pays" value="{{infosEcurie.ECUNOM}}">
+                {{#each listePays}}
+                    <option value="{{this.PAYNUM}}">{{this.PAYNOM}}</option>
+                {{/each}}
+            </select>
+        </td>
+        </tr>
+        <tr><td>Points</td><td><input type="number" name="points" min="0" required/> pts</td></tr>
+        <tr><td>Image</td>
+            <td>
+                <input type="file" name="adresseImage" required/>
+            </td>
+        </tr>
+    </table>
+        
+    <br/><br/>
+    <input type="submit" name="modifier" value="Modifier" id="bouton"/>
+</form>
+
+<br class="myboth" />
