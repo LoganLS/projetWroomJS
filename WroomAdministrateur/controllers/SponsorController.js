@@ -64,7 +64,102 @@ module.exports.pageModifierSponsor = function(request, response){
             response.infosSponsor=result[0][0];
             response.ecurieSponsor=result[1][0];
             response.listeEcurie=result[2];
+            console.log(result[0][0]);
+            console.log(result[1][0]);
             response.render('modifierSponsor',response);
         }
     );//fin async
 }
+
+module.exports.ajouterSponsor = function(request, response){
+	response.title = 'Sponsor ajouté';
+    response.css="admin";
+    
+    var post={
+        nom:request.body.nom,
+        activite:request.body.activite
+    }
+    
+    var numEcurie=request.body.ecurie;
+    
+    console.log(post);
+    
+    async.parallel([
+        function(callback){
+            model.ajouterSponsor(post,function(err,result){
+               callback(null,result);
+            });
+        }, //fin callback0
+        
+       /* function(callback){
+            if(numEcurie!=0){
+                model.ajouterFinance(numEcurie,function(err,result){
+                   callback(null,result);
+                });
+             }
+        }, //fin callback1
+        */
+    ],
+        function(err,result){
+            if(err){
+                console.log(err);
+                return;
+            }
+            response.ajoutSponsor=result[0];
+            //response.ajoutEcurieSponsor=result[1];
+            response.render('ajout',response);
+        }
+    );//fin async
+ }
+
+module.exports.modifierSponsor = function(request, response){
+	response.title = 'Sponsor modifié';
+    response.css="admin";
+    var numSponsor=request.params.numSponsor;
+    
+    var post={
+        nom:request.body.nom,
+        activite:request.body.activite
+    }
+    
+    var numEcurie=request.body.ecurie;
+    
+    console.log(post);
+    
+    model.ajouterSponsor(post,function(err,result){
+		if(err){
+            console.log(err);
+            return;
+        }
+        response.ajoutSponsor=result[0];	
+        console.log(result);
+        response.render('ajout',response);
+	});
+    
+    async.parallel([
+        function(callback){
+            model.modifierSponsor(numSponsor,post,function(err,result){
+               callback(null,result);
+            });
+        }, //fin callback0
+        
+        function(callback){
+            if(numEcurie!=0){
+                model.modifierFinance(numSponsor,numEcurie,function(err,result){
+                   callback(null,result);
+                });
+             }
+        }, //fin callback1
+        
+    ],
+        function(err,result){
+            if(err){
+                console.log(err);
+                return;
+            }
+            response.modifSponsor=result[0];
+            response.modifEcurieSponsor=result[1];
+            response.render('modif',response);
+        }
+    );//fin async
+ }

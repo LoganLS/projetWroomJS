@@ -17,8 +17,8 @@ module.exports.getListeEcurie = function (callback) {
         if(!err){
             // s'il n'y a pas d'erreur de connexion
             // execution de la requête SQL
-            let sql ="SELECT ecunum, payadrdrap, ecunom FROM ecurie e INNER JOIN pays p ";
-            sql= sql + "ON p.paynum=e.paynum ORDER BY ecunom";
+            let sql ="SELECT ECUNUM, PAYADRDRAP, ECUNOM FROM ecurie e INNER JOIN pays p ";
+            sql= sql + "ON p.PAYNUM=e.PAYNUM ORDER BY ecunom";
             //console.log (sql);
             connexion.query(sql, callback);
 
@@ -64,8 +64,24 @@ module.exports.getInfosEcuries=function(num, callback){
         if(!err){
             // s'il n'y a pas d'erreur de connexion
             // execution de la requete SQL
-            let sql="SELECT e.ECUNOM, e.ECUNOMDIR, e.ECUADRSIEGE, p.PAYNOM, fp.FPNOM, e.ECUADRESSEIMAGE FROM ecurie e, pays p, fourn_pneu fp WHERE" +
+            let sql="SELECT e.ECUNUM, e.ECUNOM, e.ECUNOMDIR, e.ECUADRSIEGE, e.ECUPOINTS, p.PAYNOM, fp.FPNOM, e.ECUADRESSEIMAGE FROM ecurie e, pays p, fourn_pneu fp WHERE" +
                 " e.PAYNUM = p.PAYNUM AND e.FPNUM = fp.FPNUM AND e.ECUNUM = " + num;
+            connexion.query(sql, callback);
+
+            // la connexion retourne dans le pool
+            connexion.release();
+        }
+    });
+};
+
+module.exports.getMenuEcurie=function(callback){
+    // connection a la base
+    db.getConnection(function(err, connexion){
+        if(!err){
+            // s'il n'y a pas d'erreur de connexion
+            // execution de la requete SQL
+            let sql="SELECT e.ECUNUM, e.ECUNOM, e.ECUNOMDIR, e.ECUPOINTS  FROM ecurie e ORDER BY e.ECUNOM";
+            console.log(sql);
             connexion.query(sql, callback);
 
             // la connexion retourne dans le pool
@@ -77,11 +93,33 @@ module.exports.getInfosEcuries=function(num, callback){
 module.exports.getAllEcurie=function(callback){
 	db.getConnection(function(err,connexion){
 		if(!err){
-			let sql="SELECT ecunum,ecunom FROM ecurie ";
-			sql+="ORDER BY ecunom";
+			let sql="SELECT ECUNUM,ECUNOM FROM ecurie ";
+			sql+="ORDER BY ECUNOM";
 			console.log(sql);
 			connexion.query(sql,callback)
 			connexion.release();
 		}
 	});
+};
+
+module.exports.ajouterEcurie=function(values,callback){
+    db.getConnection(function(err,connexion){
+        if(!err){
+            let sql="INSERT INTO ecurie (ECUNOM, ECUNOMDIR, ECUADRSIEGE, ECUPOINTS, PAYNUM, ECUADRESSEIMAGE) ";
+            sql+="VALUES("+values.nom+"',"+values.nomdir+","+values.adressesiege+",'"+values.nbpoints+"','"+values.pays+"','"+values.image+"')";
+            connexion.query(sql,callback)
+            connexion.release();
+        }
+    });
+};
+
+module.exports.modifierEcurie=function(num,values,callback){
+    db.getConnection(function(err,connexion){
+        if(!err){
+            let sql="UPDATE ecurie SET PAYNUM="+values.pays+",CIRNOM='"+values.nom+"',CIRLONGUEUR="+values.longueur+",CIRNBSPECTATEURS="+values.spectateur+",CIRADRESSEIMAGE='"+values.adresseImage+"',CIRTEXT='"+values.description+"' ";
+            sql+="WHERE CIRNUM="+num;
+            connexion.query(sql,callback)
+            connexion.release();
+        }
+    });
 };

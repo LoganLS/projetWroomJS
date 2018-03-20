@@ -7,9 +7,9 @@
             <tr><td>Ecurie sponsorisee</td>
                 <td> 
                     <select name="ecurie">
-                            <option name="aucune">Aucune</option>
+                            <option value="0">Aucune</option>
                         {{#each listeEcurie}}
-                            <option name="{{this.ecunum}}">{{this.ecunom}}</option>
+                            <option value="{{this.ECUNUM}}">{{this.ECUNOM}}</option>
                         {{/each}}
                     </select>
                 </td>

@@ -1,15 +1,15 @@
 <center>
     <h1>Modifier un Sponsor</h1>
-    <form action="/menuSponsors/modifierSponsor/{{infosSponsor.sponum}}/modif" method="get">
+    <form action="/menuSponsors/modifierSponsor/{{infosSponsor.SPONUM}}/modif" method="get">
         <table> 
-            <tr><td>Nom</td><td><input type="text" name="nom" value="{{infosSponsor.sponom}}" required/></td></tr>
-            <tr><td>Secteur d'activité</td><td><input type="text" name="activite" value="{{infosSponsor.sposectactivite}}" required/></td></tr>
+            <tr><td>Nom</td><td><input type="text" name="nom" value="{{infosSponsor.SPONOM}}" required/></td></tr>
+            <tr><td>Secteur d'activité</td><td><input type="text" name="activite" value="{{infosSponsor.SPOSECTACTIVITE}}" required/></td></tr>
             <tr><td>Ecurie sponsorisee</td>
                 <td> 
                     <select name="ecurie">
-                            <option name="aucune">Aucune</option>
+                            <option value="0">Aucune</option>
                         {{#each listeEcurie}}
-                            <option name="{{this.ecunum}}" {{#ifCond  ecurieSponsor.ecunum '==' this.ecunum}}selected{{/ifCond}}>{{this.ecunom}}</option>
+                            <option value="{{this.ECUNUM}}" {{#ifCond ../ecurieSponsor.ECUNUM '==' this.ECUNUM}}selected{{/ifCond}}>{{this.ECUNOM}}</option>
                         {{/each}}
                     </select>
                 </td>

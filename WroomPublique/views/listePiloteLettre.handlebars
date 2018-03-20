@@ -8,13 +8,13 @@ Cliquez sur une lettre :
 <center>
 {{#each listePiloteParNom}}
     <div class="listerPilotes">
-        <a href="/repertoirePilote/detailPilote/{{this.pilnum}}">
-            <img src="/image/pilote/{{this.phoadresse}}" width="100" alt="pilote"/>
+        <a href="/repertoirePilote/detailPilote/{{this.PILNUM}}">
+            <img src="/image/pilote/{{this.PHOADRESSE}}" width="100" alt="pilote"/>
         </a>
         <br/>
-        {{this.pilprenom}}
+        {{this.PILPRENOM}}
         <br/>
-        {{this.pilnom}}
+        {{this.PILNOM}}
     </div>
 {{/each}}
 </center>

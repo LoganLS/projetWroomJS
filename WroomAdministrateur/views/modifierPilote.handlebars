@@ -1,14 +1,14 @@
 <center><h1>Modifier un Pilote</h1></center>
 
-<form action="/menuPilotes/modifierPilote/{{infosPilote.pilnum}}/modifier" method="post">
+<form action="/menuPilotes/modifierPilote/{{infosPilote.PILNUM}}/modifier" method="post">
     <table>
-        <tr><td>Prénom</td><td><input type="text" name="prenom" value="{{infosPilote.pilprenom}}" required/></td></tr>
-        <tr><td>Nom</td><td><input type="text" name="nom" value="{{infosPilote.pilnom}}" required/></td></tr>
+        <tr><td>Prénom</td><td><input type="text" name="prenom" value="{{infosPilote.PILPRENOM}}" required/></td></tr>
+        <tr><td>Nom</td><td><input type="text" name="nom" value="{{infosPilote.PILNOM}}" required/></td></tr>
         <tr><td>Date de naissance</td>
             <td>
-                <input type="number" width="50" name="jour" size="2" min="1" max="31" value="{{formatDate infosPilote.pildatenais 'DD' }}" required/> / 
-                <input type="number" name="mois" size="2" min="1" max="12" value="{{formatDate infosPilote.pildatenais 'MM' }}" required/> / 
-                <input type="number" name="annee" size="4" value="{{formatDate infosPilote.pildatenais 'YYYY' }}" required/>
+                <input type="number" width="50" name="jour" size="2" min="1" max="31" value="{{formatDate infosPilote.PILDATENAIS 'DD' }}" required/> / 
+                <input type="number" name="mois" size="2" min="1" max="12" value="{{formatDate infosPilote.PILDATENAIS 'MM' }}" required/> / 
+                <input type="number" name="annee" size="4" value="{{formatDate infosPilote.PILDATENAIS 'YYYY' }}" required/>
             </td>
         </tr>
         <tr>
@@ -16,8 +16,8 @@
             <td>
                 <select name="nationalite">
                     {{#each listeNationalite}}
-                        <option value="{{this.paynum}}" {{#ifCond  ../infosPilote.paynum '==' this.paynum}}selected{{/ifCond}}>
-                            {{this.paynat}}
+                        <option value="{{this.PAYNUM}}" {{#ifCond  ../infosPilote.PAYNUM '==' this.PAYNUM}}selected{{/ifCond}}>
+                            {{this.PAYNAT}}
                         </option>
                     {{/each}}
                 </select>
@@ -27,17 +27,17 @@
             <td>Ecurie </td><td>
             <select name="ecurie">
                 {{#each listeEcurie}}
-                    <option value="{{this.ecunum}}" {{#ifCond  ../ecurie.ecunum '==' this.ecunum}}selected{{/ifCond}}>
-                        {{this.ecunom}}
+                    <option value="{{this.ECUNUM}}" {{#ifCond  ../ecurie.ECUNUM '==' this.ECUNUM}}selected{{/ifCond}}>
+                        {{this.ECUNOM}}
                     </option>
                 {{/each}}
             </select>
             </td>
         </tr>
-        <tr><td>Points</td><td><input type="number" name="points" min="0" value="{{infosPilote.pilpoints}}" required/> pts</td></tr>
-        <tr><td>Poids</td><td><input type="number" name="poids" min="0" value="{{infosPilote.pilpoids}}" required/> kg</td></tr>
-        <tr><td>Taille</td><td><input type="number" name="taille" min="0" value="{{infosPilote.piltaille}}" required/> cm</td></tr>
-        <tr><td>Description</td><td><textarea name="description" cols="75" rows="5" required>{{infosPilote.piltexte}}</textarea></td></tr>
+        <tr><td>Points</td><td><input type="number" name="points" min="0" value="{{infosPilote.PILPOINTS}}" required/> pts</td></tr>
+        <tr><td>Poids</td><td><input type="number" name="poids" min="0" value="{{infosPilote.PILPOIDS}}" required/> kg</td></tr>
+        <tr><td>Taille</td><td><input type="number" name="taille" min="0" value="{{infosPilote.PILTAILLE}}" required/> cm</td></tr>
+        <tr><td>Description</td><td><textarea name="description" cols="75" rows="5" required>{{infosPilote.PILTEXTE}}</textarea></td></tr>
     </table>
         
     <br/><br/>

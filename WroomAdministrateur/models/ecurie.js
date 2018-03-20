@@ -17,8 +17,8 @@ module.exports.getListeEcurie = function (callback) {
         if(!err){
             // s'il n'y a pas d'erreur de connexion
             // execution de la requête SQL
-            let sql ="SELECT ecunum, payadrdrap, ecunom FROM ecurie e INNER JOIN pays p ";
-            sql= sql + "ON p.paynum=e.paynum ORDER BY ecunom";
+            let sql ="SELECT ECUNUM, PAYADRDRAP, ECUNOM FROM ecurie e INNER JOIN pays p ";
+            sql= sql + "ON p.PAYNUM=e.PAYNUM ORDER BY ecunom";
             //console.log (sql);
             connexion.query(sql, callback);
 
@@ -93,8 +93,8 @@ module.exports.getMenuEcurie=function(callback){
 module.exports.getAllEcurie=function(callback){
 	db.getConnection(function(err,connexion){
 		if(!err){
-			let sql="SELECT ecunum,ecunom FROM ecurie ";
-			sql+="ORDER BY ecunom";
+			let sql="SELECT ECUNUM,ECUNOM FROM ecurie ";
+			sql+="ORDER BY ECUNOM";
 			console.log(sql);
 			connexion.query(sql,callback)
 			connexion.release();
@@ -116,8 +116,8 @@ module.exports.ajouterEcurie=function(values,callback){
 module.exports.modifierEcurie=function(num,values,callback){
     db.getConnection(function(err,connexion){
         if(!err){
-            let sql="UPDATE ecurie SET paynum="+values.pays+",cirnom='"+values.nom+"',cirlongueur="+values.longueur+",cirnbspectateurs="+values.spectateur+",ciradresseimage='"+values.adresseImage+"',cirtext='"+values.description+"' ";
-            sql+="WHERE cirnum="+num;
+            let sql="UPDATE ecurie SET PAYNUM="+values.pays+",CIRNOM='"+values.nom+"',CIRLONGUEUR="+values.longueur+",CIRNBSPECTATEURS="+values.spectateur+",CIRADRESSEIMAGE='"+values.adresseImage+"',CIRTEXT='"+values.description+"' ";
+            sql+="WHERE CIRNUM="+num;
             connexion.query(sql,callback)
             connexion.release();
         }

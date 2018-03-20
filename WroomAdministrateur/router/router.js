@@ -44,9 +44,9 @@ module.exports = function(app){
 //Sponsors
     app.get('/menuSponsors', SponsorController.menuSponsor);
     app.get('/menuSponsors/ajouterSponsor',SponsorController.pageAjouterSponsor);
-    //app.post('/menuSponsors/ajouterSponsor/ajout',SponsorController.ajouterSponsor);
+    app.post('/menuSponsors/ajouterSponsor/ajout',SponsorController.ajouterSponsor);
     app.get('/menuSponsors/modifierSponsor/:numSponsor',SponsorController.pageModifierSponsor);
-    //app.post('/menuSponsors/modifierSponsor/:numSponsor/modifier',SponsorController.modifierSponsor);
+    app.post('/menuSponsors/modifierSponsor/:numSponsor/modifier',SponsorController.modifierSponsor);
     //app.get('/menuSponsors/supprimerSponsor/:numSponsor',SponsorController.pageSupprimerSponsor);
     
 
