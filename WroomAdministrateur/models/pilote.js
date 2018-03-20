@@ -172,17 +172,58 @@ module.exports.modifierPilote=function(num,values,callback){
 	});
 };
 
-module.exports.supprimerPilote=function(num,callback){
+module.exports.supprimerPiloteTableEssais=function(num,callback){
 	db.getConnection(function(err,connexion){
 		if(!err){
 			let sql="DELETE FROM essais WHERE PILNUM="+num;
-			sql+=" DELETE FROM sponsorise WHERE PILNUM="+num;
-			sql+=" DELETE FROM photo WHERE PILNUM="+num;
-			sql+=" DELETE FROM course WHERE PILNUM="+num;
-			sql+=" DELETE FROM pilote WHERE PILNUM="+num;
 			console.log(sql);
 			connexion.query(sql,callback)
 			connexion.release();
 		}
 	});
 }
+
+module.exports.supprimerPiloteTableSponsorise=function(num,callback){
+	db.getConnection(function(err,connexion){
+		if(!err){
+			let sql="DELETE FROM sponsorise WHERE PILNUM="+num;
+			console.log(sql);
+			connexion.query(sql,callback)
+			connexion.release();
+		}
+	});
+}
+
+module.exports.supprimerPiloteTablePhoto=function(num,callback){
+	db.getConnection(function(err,connexion){
+		if(!err){
+			let sql="DELETE FROM photo WHERE PILNUM="+num;
+			console.log(sql);
+			connexion.query(sql,callback)
+			connexion.release();
+		}
+	});
+}
+
+module.exports.supprimerPiloteTableCourse=function(num,callback){
+	db.getConnection(function(err,connexion){
+		if(!err){
+			let sql="DELETE FROM course WHERE PILNUM="+num;
+			console.log(sql);
+			connexion.query(sql,callback)
+			connexion.release();
+		}
+	});
+}
+
+module.exports.supprimerPiloteTablePilote=function(num,callback){
+	db.getConnection(function(err,connexion){
+		if(!err){
+			let sql="DELETE FROM pilote WHERE PILNUM="+num;
+			console.log(sql);
+			connexion.query(sql,callback)
+			connexion.release();
+		}
+	});
+}
+

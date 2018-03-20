@@ -133,14 +133,14 @@ module.exports.modifierSponsor = function(request, response){
             });
         }, //fin callback0
         
-        /*function(callback){
+        function(callback){
             if(numEcurie!=0){
-                model.modifierFinance(numSponsor,numEcurie,function(err,result){
+                /*model.modifierFinance(numSponsor,numEcurie,function(err,result){
                    callback(null,result);
-                });
+                });*/
              }
         }, //fin callback1
-        */
+        
     ],
         function(err,result){
             if(err){
@@ -152,21 +152,6 @@ module.exports.modifierSponsor = function(request, response){
             response.render('modif',response);
         }
     );//fin async
- }
-
-module.exports.pageSupprimerSponsor = function(request, response){
-	response.title = 'Supprimer un sponsor';
-    response.css="admin";
-    var num=request.params.numSponsor;
-    
-	model.supprimerSponsor(num,function(err,result){
-		if (err) {
-            // gestion de l'erreur
-            console.log(err);
-            return;
-        }
-        response.render('supprimer', response);
-	});
  }
 
 module.exports.pageSupprimerSponsor = function(request, response){

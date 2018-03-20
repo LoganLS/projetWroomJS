@@ -80,13 +80,46 @@ module.exports.modifierCircuit=function(num,values,callback){
 	});
 };
 
-module.exports.supprimerCircuit=function(num,callback){
+module.exports.supprimerCircuitTableCourse=function(num,callback){
 	db.getConnection(function(err,connexion){
 		if(!err){
-			let sql="DELETE FROM course WHERE GPNUM IN (SELECT GPNUM FROM course WHERE PILNUM="+num+") ";
-			sql+="DELETE FROM essais WHERE GPNUM IN (SELECT GPNUM FROM essais WHERE PILNUM="+num+") ";
-			sql+="DELETE FROM grandprix,circuit ";
+			let sql="DELETE FROM course WHERE GPNUM IN (SELECT GPNUM FROM grandprix WHERE CIRNUM="+num+") ";
+			console.log(sql);
+			connexion.query(sql,callback)
+			connexion.release();
+		}
+	});
+};
+
+module.exports.supprimerCircuitTableEssais=function(num,callback){
+	db.getConnection(function(err,connexion){
+		if(!err){
+			let sql="DELETE FROM essais WHERE GPNUM IN (SELECT GPNUM FROM grandprix WHERE CIRNUM="+num+") ";
+			console.log(sql);
+			connexion.query(sql,callback)
+			connexion.release();
+		}
+	});
+};
+
+module.exports.supprimerCircuitTableGrandprix=function(num,callback){
+	db.getConnection(function(err,connexion){
+		if(!err){
+			let sql="DELETE FROM grandprix ";
 			sql+="WHERE CIRNUM="+num;
+			console.log(sql);
+			connexion.query(sql,callback)
+			connexion.release();
+		}
+	});
+};
+
+module.exports.supprimerCircuitTableCircuit=function(num,callback){
+	db.getConnection(function(err,connexion){
+		if(!err){
+			let sql="DELETE FROM circuit ";
+			sql+="WHERE CIRNUM="+num;
+			console.log(sql);
 			connexion.query(sql,callback)
 			connexion.release();
 		}

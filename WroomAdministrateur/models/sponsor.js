@@ -106,7 +106,7 @@ module.exports.modifierFinance=function(numeroSponsor,numeroEcurie,callback){
 module.exports.supprimerSponsorTableSponsor=function(numeroSponsor,callback){
 	db.getConnection(function(err,connexion){
 		if(!err){
-			let sql=" DELETE FROM sponsor s WHERE s.SPONUM="+numeroSponsor;
+			let sql=" DELETE FROM sponsor WHERE SPONUM="+numeroSponsor;
 			console.log(sql);
 			connexion.query(sql,callback)
 			connexion.release();
@@ -117,7 +117,7 @@ module.exports.supprimerSponsorTableSponsor=function(numeroSponsor,callback){
 module.exports.supprimerSponsorTableFinance=function(numeroSponsor,callback){
 	db.getConnection(function(err,connexion){
 		if(!err){
-			let sql="DELETE FROM finance f WHERE f.SPONUM="+numeroSponsor;
+			let sql="DELETE FROM finance WHERE SPONUM="+numeroSponsor;
 			console.log(sql);
 			connexion.query(sql,callback)
 			connexion.release();
@@ -128,7 +128,7 @@ module.exports.supprimerSponsorTableFinance=function(numeroSponsor,callback){
 module.exports.supprimerSponsorTableSponsorise=function(numeroSponsor,callback){
 	db.getConnection(function(err,connexion){
 		if(!err){
-			let sql=" DELETE FROM sponsorise sp WHERE sp.SPONUM="+numeroSponsor;
+			let sql=" DELETE FROM sponsorise WHERE SPONUM="+numeroSponsor;
 			console.log(sql);
 			connexion.query(sql,callback)
 			connexion.release();
