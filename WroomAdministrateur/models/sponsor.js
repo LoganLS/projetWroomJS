@@ -57,7 +57,7 @@ module.exports.ajouterSponsor=function(values,callback){
 module.exports.modifierSponsor=function(num,values,callback){
 	db.getConnection(function(err,connexion){
 		if(!err){
-			let sql="UPDATE sponsor SET SPONUM='"+values.nom+"', SPOSECTACTIVITE='"+values.activite+"' ";
+			let sql="UPDATE sponsor SET SPONOM='"+values.nom+"', SPOSECTACTIVITE='"+values.activite+"' ";
 			sql+="WHERE SPONUM="+num;
 			console.log(sql);
 			connexion.query(sql,callback)
@@ -89,19 +89,6 @@ module.exports.modifierFinance=function(numeroSponsor,numeroEcurie,callback){
 		}
 	});
 };
-
-/*module.exports.supprimerSponsor=function(numeroSponsor,callback){
-	db.getConnection(function(err,connexion){
-		if(!err){
-			let sql="DELETE FROM finance f WHERE f.SPONUM="+numeroSponsor;
-			sql+=" DELETE FROM sponsorise sp WHERE sp.SPONUM="+numeroSponsor;
-			sql+=" DELETE FROM sponsor s WHERE s.SPONUM="+numeroSponsor;
-			console.log(sql);
-			connexion.query(sql,callback)
-			connexion.release();
-		}
-	});
-};*/
 
 module.exports.supprimerSponsorTableSponsor=function(numeroSponsor,callback){
 	db.getConnection(function(err,connexion){

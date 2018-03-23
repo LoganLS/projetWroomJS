@@ -133,13 +133,13 @@ module.exports.modifierSponsor = function(request, response){
             });
         }, //fin callback0
         
-        function(callback){
+        /*function(callback){
             if(numEcurie!=0){
-                /*model.modifierFinance(numSponsor,numEcurie,function(err,result){
+                model.modifierFinance(numSponsor,numEcurie,function(err,result){
                    callback(null,result);
-                });*/
+                });
              }
-        }, //fin callback1
+        },*/ //fin callback1
         
     ],
         function(err,result){
