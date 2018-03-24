@@ -66,16 +66,17 @@ module.exports.modifierSponsor=function(num,values,callback){
 	});
 };
 
-module.exports.ajouterFinance=function(numeroEcurie,callback){
-	/*db.getConnection(function(err,connexion){
+module.exports.ajouterFinance=function(numeroEcurie,values,callback){
+	db.getConnection(function(err,connexion){
 		if(!err){
 			let sql="INSERT INTO finance (ECUNUM,SPONUM) ";
-			sql+="VALUES("+numeroEcurie+","+numeroSponsor+")";
+			sql+="SELECT "+numeroEcurie+",SPONUM FROM sponsor WHERE SPONOM='"+values.nom+"' AND SPOSECTACTIVITE='"+values.activite+"'";
+			//sql+="VALUES("+numeroEcurie+",SELECT SPONUM FROM sponsor WHERE SPONOM='"+values.nom+"' AND SPOSECTACTIVITE='"+values.activite+"') ";
 			console.log(sql);
 			connexion.query(sql,callback)
 			connexion.release();
 		}
-	});*/
+	});
 };
 
 module.exports.modifierFinance=function(numeroSponsor,numeroEcurie,callback){

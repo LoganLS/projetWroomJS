@@ -91,14 +91,14 @@ module.exports.ajouterSponsor = function(request, response){
             });
         }, //fin callback0
         
-       /* function(callback){
+        /*function(callback){
             if(numEcurie!=0){
-                model.ajouterFinance(numEcurie,function(err,result){
+                model.ajouterFinance(numEcurie,post,function(err,result){
                    callback(null,result);
                 });
              }
-        }, //fin callback1
-        */
+        },*/ //fin callback1
+        
     ],
         function(err,result){
             if(err){
@@ -107,6 +107,15 @@ module.exports.ajouterSponsor = function(request, response){
             }
             response.ajoutSponsor=result[0];
             //response.ajoutEcurieSponsor=result[1];
+			if(numEcurie!=0){
+				model.ajouterFinance(numEcurie,post,function(err,result){
+						if (err) {
+							// gestion de l'erreur
+							console.log(err);
+							return;
+						}
+					});
+			}
             response.render('ajout',response);
         }
     );//fin async
@@ -123,6 +132,7 @@ module.exports.modifierSponsor = function(request, response){
     }
     
     var numEcurie=request.body.ecurie;
+	var suppressionTable=false;
     
     console.log(post);
     
@@ -133,13 +143,18 @@ module.exports.modifierSponsor = function(request, response){
             });
         }, //fin callback0
         
-        /*function(callback){
+        function(callback){
             if(numEcurie!=0){
                 model.modifierFinance(numSponsor,numEcurie,function(err,result){
                    callback(null,result);
                 });
-             }
-        },*/ //fin callback1
+             }else{
+				 suppressionTable=true;
+				model.supprimerSponsorTableFinance(numSponsor,function(err,result){
+					callback(null,result);
+            });
+			 }
+        }, //fin callback1
         
     ],
         function(err,result){
@@ -148,7 +163,18 @@ module.exports.modifierSponsor = function(request, response){
                 return;
             }
             response.modifSponsor=result[0];
-            //response.modifEcurieSponsor=result[1];
+            response.modifEcurieSponsor=result[1];
+			//Cas où le sponsor ne finançait pas d'écurie auparavant, on l'ajoute.
+			//Si on n'a pas pu modifier la ligne avec model.modifierFinance et si on n'a pas supprimé une ligne, on ajoute dans finance.
+			if(numEcurie!=0 && result[1].affectedRows==0 && suppressionTable==false){
+				model.ajouterFinance(numEcurie,post,function(err,result){
+					if (err) {
+						// gestion de l'erreur
+						console.log(err);
+						return;
+					}
+				});
+			}
             response.render('modif',response);
         }
     );//fin async
