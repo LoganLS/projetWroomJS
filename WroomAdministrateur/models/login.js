@@ -13,7 +13,7 @@ module.exports.getConnection = function (login,passwd,callback) {
         if(!err){
         	  // s'il n'y a pas d'erreur de connexion
         	  // execution de la requête SQL
-						let sql="SELECT login from login WHERE login='"+login+"' AND passwd='"+sha1(passwd)+"'";
+						let sql="SELECT LOGIN from login WHERE LOGIN='"+login+"' AND PASSWD='"+sha1(passwd)+"'";
 						console.log(sql);
             connexion.query(sql, callback);
 

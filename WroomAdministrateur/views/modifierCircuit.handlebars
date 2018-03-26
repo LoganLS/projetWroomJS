@@ -1,28 +1,28 @@
 <center><h1>Modifier un circuit</h1></center>
-<form action="/menuCircuits/modifierCircuit/{{infosCircuit.cirnum}}/modifier" method="post">
+<form action="/menuCircuits/modifierCircuit/{{infosCircuit.CIRNUM}}/modifier" method="post">
     <table> 
-        <tr><td>Nom</td><td><input type="text" name="nom" value="{{infosCircuit.cirnom}}" required/></td></tr>
-        <tr><td>Longueur</td><td><input type="text" name="longueur" value="{{infosCircuit.cirlongueur}}" required/> m</td></tr>
+        <tr><td>Nom</td><td><input type="text" name="nom" value="{{infosCircuit.CIRNOM}}" required/></td></tr>
+        <tr><td>Longueur</td><td><input type="text" name="longueur" value="{{infosCircuit.CIRLONGUEUR}}" required/> m</td></tr>
         <tr><td>Pays</td>
             <td> 
                 <select name="pays">
                     {{#each listePays}}
-                        <option value="{{this.paynum}}" {{#ifCond  ../infosCircuit.paynum '==' this.paynum}}selected{{/ifCond}}>{{this.paynom}}</option>
+                        <option value="{{this.PAYNUM}}" {{#ifCond  ../infosCircuit.PAYNUM '==' this.PAYNUM}}selected{{/ifCond}}>{{this.PAYNOM}}</option>
                     {{/each}}
                 </select>
             </td>
         </tr>
         <tr><td>Image</td>
             <td>
-                <input type="file" name="adresseImage" value="C:/wamp64/www/Wroom/public/image/circuit/{{infosCircuit.ciradresseimage}}" required/>{{infosCircuit.ciradresseimage}}
+                <input type="file" name="adresseImage" value="C:/wamp64/www/Wroom/public/image/circuit/{{infosCircuit.CIRADRESSEIMAGE}}" required/>{{infosCircuit.CIRADRESSEIMAGE}}
             </td>
         </tr>
         <tr><td>Nombre de spectateurs</td>
             <td>
-                <input type="text" name="spectateur" value="{{infosCircuit.cirnbspectateurs}}" required/> personnes
+                <input type="text" name="spectateur" value="{{infosCircuit.CIRNBSPECTATEURS}}" required/> personnes
             </td>
         </tr>
-        <tr><td>Description</td><td><textarea name="description" cols="75" rows="5" required>{{infosCircuit.cirtext}}</textarea></td></tr>
+        <tr><td>Description</td><td><textarea name="description" cols="75" rows="5" required>{{infosCircuit.CIRTEXT}}</textarea></td></tr>
     </table>
     
     <br/><br/>

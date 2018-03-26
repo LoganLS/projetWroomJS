@@ -195,18 +195,49 @@ module.exports.pageModifierPilote = function(request, response){
  }
 
 module.exports.pageSupprimerPilote = function(request, response){
-	response.title = 'Supprimer un pilote';
+	response.title = 'Pilote supprimé';
     response.css="admin";
     var num=request.params.numPilote;
     
-	model.supprimerPilote(num,function(err,result){
-		if (err) {
-            // gestion de l'erreur
-            console.log(err);
-            return;
+    async.parallel([
+        function(callback){
+            model.supprimerPiloteTableEssais(num,function(err,result){
+               callback(null,result);
+            });
+        }, //fin callback0
+        
+        function(callback){
+            model.supprimerPiloteTableSponsorise(num,function(err,result){
+               callback(null,result);
+            });
+        }, //fin callback1
+        
+        function(callback){
+            model.supprimerPiloteTablePhoto(num,function(err,result){
+               callback(null,result);
+            });
+        }, //fin callback2
+        
+        function(callback){
+            model.supprimerPiloteTableCourse(num,function(err,result){
+               callback(null,result);
+            });
+        }, //fin callback3
+        
+        function(callback){
+            model.supprimerPiloteTablePilote(num,function(err,result){
+               callback(null,result);
+            });
+        }, //fin callback4
+    ],
+        function(err,result){
+            if(err){
+                console.log(err);
+                return;
+            }
+            response.render('supprimer',response);
         }
-        response.render('supprimerPilote', response);
-	});
+    );//fin async
  }
 
 module.exports.ajouterPilote = function(request, response){

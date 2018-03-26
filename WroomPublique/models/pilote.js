@@ -11,7 +11,7 @@ module.exports.getPremiereLettreNom = function (callback) {
         if(!err){
         	  // s'il n'y a pas d'erreur de connexion
         	  // execution de la requête SQL
-						let sql="SELECT DISTINCT(SUBSTRING(pilnom,1,1)) AS premiere_lettre FROM pilote ";
+						let sql="SELECT DISTINCT(SUBSTRING(PILNOM,1,1)) AS premiere_lettre FROM pilote ";
 						sql+="ORDER BY premiere_lettre"; 
 						console.log(sql);
             connexion.query(sql, callback);
@@ -33,9 +33,9 @@ module.exports.getListePiloteParNom=function(lettre,callback){
         if(!err){
         	  // s'il n'y a pas d'erreur de connexion
         	  // execution de la requête SQL
-						let sql="SELECT p.pilnum,p.pilnom,p.pilprenom,p2.phoadresse FROM pilote p INNER JOIN photo p2 "; 
-						sql+="WHERE p2.phonum=1 AND p.pilnum=p2.pilnum AND p.pilnom LIKE '"+lettre+"%' ";
-						sql+="ORDER BY p.pilnom";
+						let sql="SELECT p.PILNUM,p.PILNOM,p.PILPRENOM,p2.PHOADRESSE FROM pilote p INNER JOIN photo p2 "; 
+						sql+="WHERE p2.PHONUM=1 AND p.PILNUM=p2.PILNUM AND p.PILNOM LIKE '"+lettre+"%' ";
+						sql+="ORDER BY p.PILNOM";
 						console.log(sql);
             connexion.query(sql, callback);
 
@@ -52,8 +52,8 @@ module.exports.getListePiloteParNom=function(lettre,callback){
 module.exports.getInformationsOfOnePilote=function(id,callback){
 	db.getConnection(function(err,connexion){
 		if(!err){
-			let sql="SELECT p.pilnum,p.pilnom,p.pilprenom,p.pildatenais,p.pilpoids,p.piltaille,p.piltexte,p.pilpoints,p2.paynat,p2.paynum,p3.phoadresse FROM pilote p INNER JOIN pays p2 INNER JOIN photo p3 ";
-			sql+="WHERE p.paynum=p2.paynum AND p.pilnum=p3.pilnum AND p3.phonum=1 AND p.pilnum="+id;
+			let sql="SELECT p.PILNUM,p.PILNOM,p.PILPRENOM,p.PILDATENAIS,p.PILPOIDS,p.PILTAILLE,p.PILTEXTE,p.PILPOINTS,p2.PAYNAT,p2.PAYNUM,p3.PHOADRESSE FROM pilote p INNER JOIN pays p2 INNER JOIN photo p3 ";
+			sql+="WHERE p.PAYNUM=p2.PAYNUM AND p.PILNUM=p3.PILNUM AND p3.PHONUM=1 AND p.PILNUM="+id;
 			console.log(sql);
 			connexion.query(sql,callback);
 			connexion.release();
@@ -68,8 +68,8 @@ module.exports.getInformationsOfOnePilote=function(id,callback){
 module.exports.getInformationsPilote=function(id,callback){
 	db.getConnection(function(err,connexion){
 		if(!err){
-			let sql="SELECT p.pilnum,p.pilnom,p.pilprenom,p.pildatenais,p.pilpoids,p.piltaille,p.piltexte,p.pilpoints,p2.paynat,p2.paynum FROM pilote p INNER JOIN pays p2 ";
-			sql+="WHERE p.paynum=p2.paynum AND p.pilnum="+id;
+			let sql="SELECT p.PILNUM,p.PILNOM,p.PILPRENOM,p.PILDATENAIS,p.PILPOIDS,p.PILTAILLE,p.PILTEXTE,p.PILPOINTS,p2.PAYNAT,p2.PAYNUM FROM pilote p INNER JOIN pays p2 ";
+			sql+="WHERE p.PAYNUM=p2.PAYNUM AND p.PILNUM="+id;
 			console.log(sql);
 			connexion.query(sql,callback);
 			connexion.release();
@@ -85,8 +85,8 @@ module.exports.getInformationsPilote=function(id,callback){
 module.exports.getAllPhotosOfOnePilote=function(id,callback){
 	db.getConnection(function(err,connexion){
 		if(!err){
-			let sql="SELECT phosujet,phocommentaire,phoadresse FROM photo ";
-			sql+="WHERE phonum<>1 AND pilnum="+id;
+			let sql="SELECT PILNUM,PHOSUJET,PHOCOMMENTAIRE,PHOADRESSE FROM photo ";
+			sql+="WHERE PHONUM<>1 AND PILNUM="+id;
 			console.log(sql);
 			connexion.query(sql,callback);
 			connexion.release();
@@ -102,8 +102,8 @@ module.exports.getAllPhotosOfOnePilote=function(id,callback){
 module.exports.getAllSponsorsOfOnePilote=function(id,callback){
 	db.getConnection(function(err,connexion){
 		if(!err){
-			let sql="SELECT s.sponom,s.sposectactivite FROM sponsor s INNER JOIN sponsorise s2 ";
-			sql+="WHERE s.sponum=s2.sponum AND s2.pilnum="+id;
+			let sql="SELECT s.SPONOM,s.SPOSECTACTIVITE FROM sponsor s INNER JOIN sponsorise s2 ";
+			sql+="WHERE s.SPONUM=s2.SPONUM AND s2.PILNUM="+id;
 			console.log(sql);
 			connexion.query(sql,callback);
 			connexion.release();
@@ -119,8 +119,8 @@ module.exports.getAllSponsorsOfOnePilote=function(id,callback){
 module.exports.getStableofOnePilote=function(id,callback){
 	db.getConnection(function(err,connexion){
 		if(!err){
-			let sql="SELECT e.ecunum,e.ecunom FROM ecurie e INNER JOIN pilote p ";
-			sql+="WHERE e.ecunum=p.ecunum AND p.pilnum="+id;
+			let sql="SELECT e.ECUNUM,e.ECUNOM FROM ecurie e INNER JOIN pilote p ";
+			sql+="WHERE e.ECUNUM=p.ECUNUM AND p.PILNUM="+id;
 			console.log(sql);
 			connexion.query(sql,callback);
 			connexion.release();
@@ -139,8 +139,8 @@ module.exports.getMenuPilote=function(callback){
         if(!err){
         	  // s'il n'y a pas d'erreur de connexion
         	  // execution de la requête SQL
-						let sql="SELECT p.pilnum,p.pilnom,p.pilprenom,p.pildatenais FROM pilote p "; 
-						sql+="ORDER BY p.pilnom";
+						let sql="SELECT p.PILNUM,p.PILNOM,p.PILPRENOM,p.PILDATENAIS FROM pilote p "; 
+						sql+="ORDER BY p.PILNOM";
 						console.log(sql);
             connexion.query(sql, callback);
 
@@ -153,7 +153,7 @@ module.exports.getMenuPilote=function(callback){
 module.exports.ajouterPilote=function(values,callback){
 	db.getConnection(function(err,connexion){
 		if(!err){
-			let sql="INSERT INTO pilote (paynum,pilnom,pilprenom,pildatenais,pilpigiste,pilpoints,pilpoids,piltaille,piltexte,ecunum) ";
+			let sql="INSERT INTO pilote (PAYNUM,PILNOM,PILPRENOM,PILDATENAIS,PILPIGISTE,PILPOINTS,PILPOIDS,PILTAILLE,PILTEXTE,ECUNUM) ";
 			sql+="VALUES("+values.nationalite+",'"+values.nom+"','"+values.prenom+"','"+values.datenaissance+"',0,"+values.points+","+values.poids+","+values.taille+",'"+values.description+"',"+values.ecurie+")";
 			connexion.query(sql,callback)
 			connexion.release();
@@ -164,8 +164,8 @@ module.exports.ajouterPilote=function(values,callback){
 module.exports.modifierPilote=function(num,values,callback){
 	db.getConnection(function(err,connexion){
 		if(!err){
-			let sql="UPDATE pilote SET paynum="+values.nationalite+",pilnom='"+values.nom+"',pilprenom='"+values.prenom+"',pildatenais='"+values.datenaissance+"',pilpigiste=0,pilpoints="+values.points+",pilpoids="+values.poids+",piltaille="+values.taille+",piltexte='"+values.description+"',ecunum="+values.ecurie+" ";
-			sql+="WHERE pilnum="+num;
+			let sql="UPDATE pilote SET PAYNUM="+values.nationalite+",PILNOM='"+values.nom+"',PILPRENOM='"+values.prenom+"',PILDATENAIS='"+values.datenaissance+"',PILPIGISTE=0,PILPOINTS="+values.points+",PILPOIDS="+values.poids+",PILTAILLE="+values.taille+",PILTEXTE='"+values.description+"',ECUNUM="+values.ecurie+" ";
+			sql+="WHERE PILNUM="+num;
 			connexion.query(sql,callback)
 			connexion.release();
 		}
@@ -175,11 +175,11 @@ module.exports.modifierPilote=function(num,values,callback){
 module.exports.supprimerPilote=function(num,callback){
 	db.getConnection(function(err,connexion){
 		if(!err){
-			let sql="DELETE FROM essais WHERE pilnum="+num;
-			sql+=" DELETE FROM sponsorise WHERE pilnum="+num;
-			sql+=" DELETE FROM photo WHERE pilnum="+num;
-			sql+=" DELETE FROM course WHERE pilnum="+num;
-			sql+=" DELETE FROM pilote WHERE pilnum="+num;
+			let sql="DELETE FROM essais WHERE PILNUM="+num;
+			sql+=" DELETE FROM sponsorise WHERE PILNUM="+num;
+			sql+=" DELETE FROM photo WHERE PILNUM="+num;
+			sql+=" DELETE FROM course WHERE PILNUM="+num;
+			sql+=" DELETE FROM pilote WHERE PILNUM="+num;
 			console.log(sql);
 			connexion.query(sql,callback)
 			connexion.release();

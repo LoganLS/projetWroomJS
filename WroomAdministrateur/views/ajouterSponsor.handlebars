@@ -1,15 +1,15 @@
 <center>
     <h1>Ajouter un Sponsor</h1>
-    <form action="/menuSponsors/ajouterSponsor/ajout" method="get">
+    <form action="/menuSponsors/ajouterSponsor/ajout" method="post">
         <table> 
             <tr><td>Nom</td><td><input type="text" name="nom" required/></td></tr>
             <tr><td>Secteur d'activité</td><td><input type="text" name="activite" required/></td></tr>
             <tr><td>Ecurie sponsorisee</td>
                 <td> 
                     <select name="ecurie">
-                            <option name="aucune">Aucune</option>
+                            <option value="0">Aucune</option>
                         {{#each listeEcurie}}
-                            <option name="{{this.ecunum}}">{{this.ecunom}}</option>
+                            <option value="{{this.ECUNUM}}">{{this.ECUNOM}}</option>
                         {{/each}}
                     </select>
                 </td>

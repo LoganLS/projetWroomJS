@@ -1,18 +1,18 @@
 <center>
     <a href=""><img src="/image/cat_circuit.png"/></a>
     <h1>Gestion des Circuits</h1>
-    <a href="/menuCircuits/ajouterCircuit"><img src="/image/act_add.png"/> Ajouter un circuit</a><br/><br/>
+    <a href="/menuCircuits/ajouterCircuit"><img src="/image/act_add.png"/>Ajouter un circuit</a><br/><br/>
 
     <table id="tableMenu">
         <th>Nom</th><th>Longueur</th><th>Nombre de spectateurs</th><th>Actions</th>
         {{#each menuCircuit}}
         <tr>
-            <td class="ligne">{{this.cirnom}}</td>
-            <td class="ligne">{{this.cirlongueur}}</td>
-            <td class="ligne">{{this.cirnbspectateurs}}</td>
+            <td class="ligne">{{this.CIRNOM}}</td>
+            <td class="ligne">{{this.CIRLONGUEUR}}</td>
+            <td class="ligne">{{this.CIRNBSPECTATEURS}}</td>
             <td class="ligne">
-                <img src="/image/act_edit.png"/><a href="/menuCircuits/modifierCircuit/{{this.cirnum}}">Modifier</a>
-                <img src="/image/act_delete.png"/><a href="/menuCircuits/supprimerCircuit/{{this.cirnum}}">Supprimer</a>
+                <img src="/image/act_edit.png"/><a href="/menuCircuits/modifierCircuit/{{this.CIRNUM}}">Modifier</a>
+                <img src="/image/act_delete.png"/><a href="/menuCircuits/supprimerCircuit/{{this.CIRNUM}}">Supprimer</a>
             </td>
         </tr>
         {{/each}}

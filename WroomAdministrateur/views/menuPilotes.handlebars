@@ -6,12 +6,12 @@
         <th>Nom</th><th>Prénom</th><th>Date de Naissance</th><th>Actions</th>
         {{#each menuPilote}}
         <tr>
-            <td class="ligne">{{this.pilnom}}</td>
-            <td class="ligne">{{this.pilprenom}}</td>
-            <td class="ligne">{{formatDate this.pildatenais 'DD/MM/YYYY'}}</td>
+            <td class="ligne">{{this.PILNOM}}</td>
+            <td class="ligne">{{this.PILPRENOM}}</td>
+            <td class="ligne">{{formatDate this.PILDATENAIS 'DD/MM/YYYY'}}</td>
             <td class="ligne">
-                <img src="/image/act_edit.png"/><a href="/menuPilotes/modifierPilote/{{this.pilnum}}">Modifier</a>
-                <img src="/image/act_delete.png"/><a href="menuPilotes/supprimerPilote/{{this.pilnum}}">Supprimer</a>
+                <img src="/image/act_edit.png"/><a href="/menuPilotes/modifierPilote/{{this.PILNUM}}">Modifier</a>
+                <img src="/image/act_delete.png"/><a href="menuPilotes/supprimerPilote/{{this.PILNUM}}">Supprimer</a>
             </td>
         </tr>
         {{/each}}

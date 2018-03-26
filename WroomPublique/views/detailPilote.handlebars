@@ -1,5 +1,3 @@
-<script type="text/javascript" language="javascript" src="lytebox/lytebox.js"></script>
-<link rel="stylesheet" href="lytebox/lytebox.css" type="text/css" media="screen" />
 <!-- Detail d'un pilote -->
 <div>
     <center>
@@ -10,36 +8,36 @@
     </center>
     <br/>
     <div style="display:inline">
-        <img style="float:left" src="/image/pilote/{{detailPilote.phoadresse}}" width="75" alt="pilote"/>
+        <img style="float:left" src="/image/pilote/{{detailPilote.PHOADRESSE}}" width="75" alt="pilote"/>
     </div>
     <div style="display:inline">
         <table>
             <tr>
                 <td>
-                    <b>Nom : </b>{{detailPilote.pilnom}} {{detailPilote.pilprenom}}
+                    <b>Nom : </b>{{detailPilote.PILNOM}} {{detailPilote.PILPRENOM}}
                 </td>
             </tr>
             <tr>
                 <td> 
-                    <b>Date de naissance :</b> {{formatDate detailPilote.pildatenais 'DD/MM/YYYY'}}
+                    <b>Date de naissance :</b> {{formatDate detailPilote.PILDATENAIS 'DD/MM/YYYY'}}
                 </td>
                 <td>
-                    <b>Poids : </b>{{detailPilote.pilpoids}} kg
+                    <b>Poids : </b>{{detailPilote.PILPOIDS}} kg
                 </td>
             </tr>
             <tr>
                 <td> 
-                    <b>Nationalité :</b> {{detailPilote.paynat}}
+                    <b>Nationalité :</b> {{detailPilote.PAYNAT}}
                 </td>
                 <td>
-                    <b>Taille : </b>{{detailPilote.piltaille}} cm
+                    <b>Taille : </b>{{detailPilote.PILTAILLE}} cm
                 </td>
             </tr>
             <tr>
                 <td>
                     <b>Ecurie : </b>
                     {{#each ecuriePilote}}
-                        {{this.ecunom}}
+                        {{this.ECUNOM}}
                     {{else}}
                         Pas d'écurie cette année
                     {{/each}}
@@ -53,20 +51,25 @@
         {{#if sponsorsPilote}}
             <b>Principaux sponsors : </b><br/>
             {{#each sponsorsPilote}}
-                <b>{{this.sponom}}</b> ({{this.sposectactivite}})<br/>
+                <b>{{this.sponom}}</b> ({{this.SPOSECTACTIVITE}})<br/>
             {{/each}}
         {{/if}}
     </div>
     
-    <p><b>Qui suis-je ? </b>{{detailPilote.piltexte}}</p>
+    <p><b>Qui suis-je ? </b>{{detailPilote.PILTEXTE}}</p>
 </div>
     
 <!-- Photos -->
 <div>
     <center>
         {{#each photosPilote}}
-            <a href="/image/pilote/{{this.phoadresse}}" rel="lytebox[vacation]" title="{{this.phosujet}} : {{this.phocommentaire}}">
-                <img src="/image/pilote/{{this.phoadresse}}" alt="Photo de {{../this.pilprenom}} {{../this.pilnom}}" width="100">
+            <a href="/repertoirePilote/detailPilote/{{this.PHOADRESSE}}" class="tooltip">
+                <span class="tooltiptext">
+                    <img src='/image/pilote/{{this.PHOADRESSE}}' alt="Photo pilote" class="imagePilote">
+                </span>
+            </a><br>
+            <a href="/repertoirePilote/detailPilote/{{this.PHOADRESSE}}" rel="lytebox[vacation]" title="{{this.phosujet}} : {{this.PHOCOMMENTAIRE}}">
+                <img src="/image/pilote/{{this.PHOADRESSE}}" alt="Photo pilote" width="100">
             </a>
         {{/each}}
     </center>

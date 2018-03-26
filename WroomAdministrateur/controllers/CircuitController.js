@@ -117,20 +117,45 @@ module.exports.pageModifierCircuit = function(request, response){
 }
 
 module.exports.pageSupprimerCircuit = function(request, response){
-    response.title = 'Supprimer un circuit';  
-    var num=request.params.numCircuit;
+	response.title = 'Circuit supprimé';
     response.css="admin";
-	model.supprimerCircuit(num,function(err,result){
-		if (err) {
-            // gestion de l'erreur
-            console.log(err);
-            return;
+    var num=request.params.numCircuit;
+    
+    async.parallel([
+        function(callback){
+            model.supprimerCircuitTableCourse(num,function(err,result){
+               callback(null,result);
+            });
+        }, //fin callback0
+        
+        function(callback){
+            model.supprimerCircuitTableEssais(num,function(err,result){
+               callback(null,result);
+            });
+        }, //fin callback1
+        
+        function(callback){
+            model.supprimerCircuitTableGrandprix(num,function(err,result){
+               callback(null,result);
+            });
+        }, //fin callback2
+        
+        function(callback){
+            model.supprimerCircuitTableCircuit(num,function(err,result){
+               callback(null,result);
+            });
+        }, //fin callback3
+    
+    ],
+        function(err,result){
+            if(err){
+                console.log(err);
+                return;
+            }
+            response.render('supprimer',response);
         }
-        response.suppression = result;	
-        console.log(result);
-        response.render('supprimer', response);
-	});
-}
+    );//fin async
+ }
 
 module.exports.ajouterCircuit = function(request, response){
 	response.title = 'Circuit ajouté';
