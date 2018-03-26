@@ -73,8 +73,6 @@ module.exports.getInfosEcuries=function(num, callback){
         }
     });
 };
-<<<<<<< HEAD
-=======
 
 module.exports.getMenuEcurie=function(callback){
     // connection a la base
@@ -91,7 +89,7 @@ module.exports.getMenuEcurie=function(callback){
         }
     });
 };
->>>>>>> 115c5a532c9c6ff52a9625adf22c71f8f4533fad
+
 
 module.exports.getAllEcurie=function(callback){
 	db.getConnection(function(err,connexion){
@@ -105,8 +103,7 @@ module.exports.getAllEcurie=function(callback){
 	});
 };
 
-<<<<<<< HEAD
-=======
+
 module.exports.ajouterEcurie=function(values,callback){
     db.getConnection(function(err,connexion){
         if(!err){
@@ -128,4 +125,4 @@ module.exports.modifierEcurie=function(num,values,callback){
         }
     });
 };
->>>>>>> 115c5a532c9c6ff52a9625adf22c71f8f4533fad
+
