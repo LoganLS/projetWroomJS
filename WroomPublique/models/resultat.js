@@ -17,7 +17,7 @@ module.exports.getListeGrandPrix = function (callback) {
         if(!err){
             // s'il n'y a pas d'erreur de connexion
             // execution de la requête SQL
-            let sql ="SELECT g.GPNOM, ";
+            let sql ="SELECT g.GPNUM, g.GPNOM, p.PAYADRDRAP FROM grandprix g, circuit c, pays p WHERE g.CIRNUM = c.CIRNUM AND c.PAYNUM = p.PAYNUM ";
             //console.log (sql);
             connexion.query(sql, callback);
 
@@ -74,3 +74,15 @@ module.exports.getInfosEcuries=function(num, callback){
 };
 
 */
+
+module.exports.getResultatGrandPrix=function(num, callback){
+    db.getConnection(function(err, connexion){
+        if(!err){
+
+            let sql = "SELECT p.PILNOM, c.TEMPSCOURSE FROM pilote p, course c, grandprix g WHERE p.PILNUM = c.PILNUM AND c.GPNUM = g.GPNUM AND g.GPNUM = " + num + " ORDER BY c.TEMPSCOURSE ";
+            connexion.query(sql, callback);
+
+            connexion.release();
+        }
+    })
+}

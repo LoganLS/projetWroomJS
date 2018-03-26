@@ -34,9 +34,6 @@ module.exports.DetailResultat = function(request,response){
                 });
             }, //fin callback1
 
-
-
-
         ],
         function(err,result){
             if(err){
@@ -45,9 +42,6 @@ module.exports.DetailResultat = function(request,response){
             }
             response.listeGP= result[0];
             response.listeRes= result[1];
-            console.log(result[1]);
-            console.log(result[1][0]);
-            console.log(result[0]);
             response.render('detailResultat',response);
         }
     );//fin async
