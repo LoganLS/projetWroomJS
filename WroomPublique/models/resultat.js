@@ -82,10 +82,24 @@ module.exports.getResultatGrandPrix=function(num, callback){
     db.getConnection(function(err, connexion){
         if(!err){
 
-            let sql = "SELECT p.PILNOM, c.TEMPSCOURSE FROM pilote p, course c, grandprix g WHERE p.PILNUM = c.PILNUM AND c.GPNUM = g.GPNUM AND g.GPNUM = " + num + " ORDER BY c.TEMPSCOURSE ";
+            let sql = "SELECT p.PILNOM, c.TEMPSCOURSE FROM pilote p, course c, grandprix g WHERE p.PILNUM = c.PILNUM AND c.GPNUM = g.GPNUM AND g.GPNUM = " + num + " ORDER BY c.TEMPSCOURSE" +
+                "";
             connexion.query(sql, callback);
 
             connexion.release();
         }
     })
 }
+
+module.exports.getDernierResultat = function (callback) {
+    db.getConnection(function (err, connexion) {
+        if (!err) {
+
+            let sql = "SELECT gpnum, gpnom, gpdate, gpdatemaj from grandprix order by gpdate desc limit 1" ;
+            //console.log (sql);
+            connexion.query(sql, callback);
+
+            connexion.release();
+        }
+    });
+};

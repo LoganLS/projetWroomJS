@@ -1,0 +1,12 @@
+<table class="tab_pays">
+    <tr><td>
+        <u> DERNIERS RÉSULTATS</u>
+        <br>
+        {{#each resultat}}
+            <p>{{this.gpnom}} du {{formatDate this.gpdate 'L'}}</p>
+            <p>Mise à jour le : {{formatDate this.gpdatemaj 'L'}}</p>
+            <a href="/detailResultat/{{this.gpnum}}">Voir les résultats</a>
+        {{/each}}
+    </td></tr>
+</table>
+<br class="myboth">

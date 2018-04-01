@@ -34,7 +34,7 @@ module.exports.getPiloteNumEcurie=function(num,callback){
         if(!err){
             // s'il n'y a pas d'erreur de connexion
             // execution de la requete SQL
-            let sql="SELECT p.PILNOM, p.PILPRENOM, ph.PHOADRESSE FROM pilote p, photo ph WHERE p.PILNUM = ph.PILNUM AND ph.PHONUM=1 AND ECUNUM = " + num + " ";
+            let sql="SELECT p.PILNUM, p.PILNOM, p.PILPRENOM, ph.PHOADRESSE FROM pilote p, photo ph WHERE p.PILNUM = ph.PILNUM AND ph.PHONUM=1 AND ECUNUM = " + num + " ";
             connexion.query(sql, callback);
 
             // la connexion retourne dans le pool
@@ -53,6 +53,21 @@ module.exports.getVoitureNumEcurie=function(num,callback){
             connexion.query(sql, callback);
 
             // la connexion retourne dans le pool
+            connexion.release();
+        }
+    });
+};
+
+module.exports.getSponsorsNumEcurie = function (num, callback) {
+    //connection à la base
+    db.getConnection(function (err, connexion) {
+        if (!err) {
+            // s'il n'y a pas d'erreur de connexion
+            // execution de la requête SQL
+            let sql = "SELECT sponom, sposectactivite FROM sponsor s JOIN finance f ON s.sponum=f.sponum WHERE ecunum=" + num;
+            connexion.query(sql, callback);
+
+            //la connexion retourne dans le pool
             connexion.release();
         }
     });

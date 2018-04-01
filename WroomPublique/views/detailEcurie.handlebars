@@ -34,30 +34,39 @@
                     <b>Pays : </b>{{infosEcurie.PAYNOM}}
                 </td>
             </tr>
-            <tr>
-                <td>
-                    <b>Fournisseur pneu : </b>{{infosEcurie.FPNOM}}
-                </td>
-            </tr>
-        <tr>
+
 
 
             {{#if infosPilotes}}
+                <tr>
+                    <td>
+                        <b>Fournisseur pneu : </b>{{infosEcurie.FPNOM}}
+                    </td>
+                </tr>
+                {{#each listeSponsors}}
+                <tr>
+                    <td>
+                        <p><b>Sponsors : </b>{{this.sponom}}({{this.sposectactivite}})</p>
+                    </td>
+                </tr>
+                {{/each}}
+            <tr>
                 <td><b>Pilotes : </b></td>
                 {{#each infosPilotes}}
                     <tr>
-                    <td>
-                        <a href="#" class="bulle" title="<img style='float:left' src='/image/pilote/{{this.PHOADRESSE}}' height='50' alt='pilote'/>"><p>{{this.PILNOM}} {{this.PILPRENOM}}</p></a>
-                    </td>
+                        <td>
+                            <a href="../repertoirePilote/detailPilote/{{this.PILNUM}}" class="bulle"><p>{{this.PILNOM}} {{this.PILPRENOM}}</p></a>
+                        </td>
                     </tr>
-
+                    </tr>
                 {{/each}}
+
                 {{#if infosVoitures}}
 
                                             {{#each infosVoitures}}
                                                 <tr>
                                                 <td>
-                                                    <img style="float:left" src="/image/ecurie/voiture/{{this.VOIADRESSEIMAGE}}" width="75" alt="voiture"/>
+                                                    <img style="float:left" src="/image/ecurie/voiture/{{this.VOIADRESSEIMAGE}}" width="125px" alt="voiture"/>
                                                 </td>
                                                 <td>
                                                     <p>{{this.VOINOM}}</p>
@@ -78,10 +87,11 @@
             {{/if}}
 
 
-        </tr>
+
 
         </table>
     </div>
     <br/>
 
 <br class="myboth" />
+</div>

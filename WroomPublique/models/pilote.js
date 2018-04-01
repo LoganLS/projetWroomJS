@@ -2,15 +2,15 @@ let db = require('../configDb');
 
 
 /*
-* Récupérer l'intégralité des lettres du nom des pilotes
-* @return Un tableau qui contient les premières lettres du nom des pilotes
+* Rï¿½cupï¿½rer l'intï¿½gralitï¿½ des lettres du nom des pilotes
+* @return Un tableau qui contient les premiï¿½res lettres du nom des pilotes
 */
 module.exports.getPremiereLettreNom = function (callback) {
-   // connection à la base
+   // connection ï¿½ la base
 	db.getConnection(function(err, connexion){
         if(!err){
         	  // s'il n'y a pas d'erreur de connexion
-        	  // execution de la requête SQL
+        	  // execution de la requï¿½te SQL
 						let sql="SELECT DISTINCT(SUBSTRING(PILNOM,1,1)) AS premiere_lettre FROM pilote ";
 						sql+="ORDER BY premiere_lettre"; 
 						console.log(sql);
@@ -23,20 +23,20 @@ module.exports.getPremiereLettreNom = function (callback) {
 };
 
 /*
-* Récupérer tous les noms et prénoms des pilotes selon la première lettre de leur nom
-* @Param : Première lettre du nom des pilotes
-* @Return un tableau qui contient les noms et prénoms des pilotes selon la lettre
+* Rï¿½cupï¿½rer tous les noms et prï¿½noms des pilotes selon la premiï¿½re lettre de leur nom
+* @Param : Premiï¿½re lettre du nom des pilotes
+* @Return un tableau qui contient les noms et prï¿½noms des pilotes selon la lettre
 */
 module.exports.getListePiloteParNom=function(lettre,callback){
-   // connection à la base
+   // connection ï¿½ la base
 	db.getConnection(function(err, connexion){
         if(!err){
         	  // s'il n'y a pas d'erreur de connexion
-        	  // execution de la requête SQL
+        	  // execution de la requï¿½te SQL
 						let sql="SELECT p.PILNUM,p.PILNOM,p.PILPRENOM,p2.PHOADRESSE FROM pilote p INNER JOIN photo p2 "; 
 						sql+="WHERE p2.PHONUM=1 AND p.PILNUM=p2.PILNUM AND p.PILNOM LIKE '"+lettre+"%' ";
 						sql+="ORDER BY p.PILNOM";
-						console.log(sql);
+
             connexion.query(sql, callback);
 
             // la connexion retourne dans le pool
@@ -47,14 +47,14 @@ module.exports.getListePiloteParNom=function(lettre,callback){
 
 /*
 * @Param : id du pilote
-* @Return les informations d'un pilote : nom,prénom,date naissance,poids,taille,description,nationalité,photo
+* @Return les informations d'un pilote : nom,prï¿½nom,date naissance,poids,taille,description,nationalitï¿½,photo
 */
 module.exports.getInformationsOfOnePilote=function(id,callback){
 	db.getConnection(function(err,connexion){
 		if(!err){
 			let sql="SELECT p.PILNUM,p.PILNOM,p.PILPRENOM,p.PILDATENAIS,p.PILPOIDS,p.PILTAILLE,p.PILTEXTE,p.PILPOINTS,p2.PAYNAT,p2.PAYNUM,p3.PHOADRESSE FROM pilote p INNER JOIN pays p2 INNER JOIN photo p3 ";
 			sql+="WHERE p.PAYNUM=p2.PAYNUM AND p.PILNUM=p3.PILNUM AND p3.PHONUM=1 AND p.PILNUM="+id;
-			console.log(sql);
+
 			connexion.query(sql,callback);
 			connexion.release();
 		}
@@ -63,14 +63,14 @@ module.exports.getInformationsOfOnePilote=function(id,callback){
 
 /*
 * @Param : id du pilote
-* @Return les informations d'un pilote : nom,prénom,date naissance,poids,taille,description,nationalité,photo
+* @Return les informations d'un pilote : nom,prï¿½nom,date naissance,poids,taille,description,nationalitï¿½,photo
 */
 module.exports.getInformationsPilote=function(id,callback){
 	db.getConnection(function(err,connexion){
 		if(!err){
 			let sql="SELECT p.PILNUM,p.PILNOM,p.PILPRENOM,p.PILDATENAIS,p.PILPOIDS,p.PILTAILLE,p.PILTEXTE,p.PILPOINTS,p2.PAYNAT,p2.PAYNUM FROM pilote p INNER JOIN pays p2 ";
 			sql+="WHERE p.PAYNUM=p2.PAYNUM AND p.PILNUM="+id;
-			console.log(sql);
+
 			connexion.query(sql,callback);
 			connexion.release();
 		}
@@ -78,7 +78,7 @@ module.exports.getInformationsPilote=function(id,callback){
 };
 
 /*
-* Récupérer toutes les photos d'un pilote
+* Rï¿½cupï¿½rer toutes les photos d'un pilote
 * @Param : id du pilote
 * @Return liste des photos
 */
@@ -87,7 +87,7 @@ module.exports.getAllPhotosOfOnePilote=function(id,callback){
 		if(!err){
 			let sql="SELECT PILNUM,PHOSUJET,PHOCOMMENTAIRE,PHOADRESSE FROM photo ";
 			sql+="WHERE PHONUM<>1 AND PILNUM="+id;
-			console.log(sql);
+
 			connexion.query(sql,callback);
 			connexion.release();
 		}
@@ -95,7 +95,7 @@ module.exports.getAllPhotosOfOnePilote=function(id,callback){
 };
 
 /*
-* Récupérer toutes les sponsors d'un pilote
+* Rï¿½cupï¿½rer toutes les sponsors d'un pilote
 * @Param : id du pilote
 * @Return liste des sponsors
 */
@@ -112,9 +112,9 @@ module.exports.getAllSponsorsOfOnePilote=function(id,callback){
 };
 
 /*
-* Renseigne l'écurie d'un pilote
+* Renseigne l'ï¿½curie d'un pilote
 * @Param : id du pilote
-* @Return l'écurie du pilote s'il en a un
+* @Return l'ï¿½curie du pilote s'il en a un
 */
 module.exports.getStableofOnePilote=function(id,callback){
 	db.getConnection(function(err,connexion){
@@ -129,16 +129,16 @@ module.exports.getStableofOnePilote=function(id,callback){
 };
 
 /*
-* Récupérer tous les noms, prénoms et dates de naissance des pilotes
-* @Param : Première lettre du nom des pilotes
-* @Return un tableau qui contient les noms et prénoms des pilotes selon la lettre
+* Rï¿½cupï¿½rer tous les noms, prï¿½noms et dates de naissance des pilotes
+* @Param : Premiï¿½re lettre du nom des pilotes
+* @Return un tableau qui contient les noms et prï¿½noms des pilotes selon la lettre
 */
 module.exports.getMenuPilote=function(callback){
-   // connection à la base
+   // connection ï¿½ la base
 	db.getConnection(function(err, connexion){
         if(!err){
         	  // s'il n'y a pas d'erreur de connexion
-        	  // execution de la requête SQL
+        	  // execution de la requï¿½te SQL
 						let sql="SELECT p.PILNUM,p.PILNOM,p.PILPRENOM,p.PILDATENAIS FROM pilote p "; 
 						sql+="ORDER BY p.PILNOM";
 						console.log(sql);

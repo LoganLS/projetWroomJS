@@ -41,6 +41,11 @@ module.exports.DetailEcurie = function(request,response){
                     callback(null,result);
                 });
             },//fin callback3
+            function (callback) {
+                model.getSponsorsNumEcurie(num, function (err, result) {
+                    callback(null, result)
+                });
+            },//fin callback4
 
         ],
         function(err,result){
@@ -52,6 +57,7 @@ module.exports.DetailEcurie = function(request,response){
             response.infosEcurie = result[1][0];
             response.infosPilotes = result[2];
             response.infosVoitures = result[3];
+            response.listeSponsors = result[4];
             console.log(result[3]);
             response.render('detailEcurie',response);
         }

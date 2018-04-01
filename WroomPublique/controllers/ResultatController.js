@@ -42,7 +42,9 @@ module.exports.DetailResultat = function(request,response){
             }
             response.listeGP= result[0];
             response.listeRes= result[1];
+
             response.render('detailResultat',response);
         }
     );//fin async
 }
+
