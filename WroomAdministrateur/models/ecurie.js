@@ -4,7 +4,7 @@
 * sa méthode getConnection permet de se connecter à MySQL
 */
 let db = require('../configDb');
-module.exports.getEcuries = function (callback) {
+module.exports.getAllEcuries = function (callback) {
     //connection à la base
     db.getConnection(function (err, connexion) {
         if (!err) {
