@@ -7,7 +7,7 @@ module.exports.menuEcurie = function(request, response) {
     response.title = 'Gérer les ecuries';
     async.parallel ([
             function (callback) {
-                model.getAllEcuries(function (err, result) { callback(null, result) });
+                model.getAllEcurie(function (err, result) { callback(null, result) });
             },
         ],
         function (err, result) {
