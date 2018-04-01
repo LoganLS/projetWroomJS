@@ -2,112 +2,55 @@
 * config.Db contient les parametres de connection à la base de données
 * il va créer aussi un pool de connexions utilisables
 * sa méthode getConnection permet de se connecter à MySQL
-*
 */
-
 let db = require('../configDb');
-
-/*
-* Récupérer l'intégralité les écuries avec l'adresse de la photo du pays de l'écurie
-* @return Un tableau qui contient le N°, le nom de l'écurie et le nom de la photo du drapeau du pays
-*/
-module.exports.getListeEcurie = function (callback) {
-    // connection à la base
-    db.getConnection(function(err, connexion){
-        if(!err){
-            // s'il n'y a pas d'erreur de connexion
-            // execution de la requête SQL
-            let sql ="SELECT ECUNUM, PAYADRDRAP, ECUNOM FROM ecurie e INNER JOIN pays p ";
-            sql= sql + "ON p.PAYNUM=e.PAYNUM ORDER BY ecunom";
+module.exports.getEcuries = function (callback) {
+    //connection à la base
+    db.getConnection(function (err, connexion) {
+        if (!err) {
+            //s'il n'y a pas d'erreur de connexion
+            //execution de la requête SQL
+            let sql = "SELECT ECUNUM, ECUNOMDIR, ECUNOM, ECUPOINTS FROM ecurie ORDER BY ECUNOM";
             //console.log (sql);
             connexion.query(sql, callback);
-
-            // la connexion retourne dans le pool
+            //la connexion retourne dans le pool
             connexion.release();
         }
     });
 };
 
-module.exports.getPiloteNumEcurie=function(num,callback){
-    // connection a la base
-    db.getConnection(function(err, connexion){
-        if(!err){
-            // s'il n'y a pas d'erreur de connexion
-            // execution de la requete SQL
-            let sql="SELECT p.PILNOM, p.PILPRENOM, ph.PHOADRESSE FROM pilote p, photo ph WHERE p.PILNUM = ph.PILNUM AND ph.PHONUM=1 AND ECUNUM = " + num + " ";
+module.exports.getAllFournisseurs = function (callback) {
+    //connection à la base
+    db.getConnection(function (err, connexion) {
+        if (!err) {
+            //s'il n'y a pas d'erreur de connexion
+            //execution de la requête SQL
+            let sql = "SELECT FPNUM, FPNOM FROM fourn_pneu ORDER BY FPNOM ASC";
+            //console.log (sql);
             connexion.query(sql, callback);
-
-            // la connexion retourne dans le pool
+            //la connexion retourne dans le pool
             connexion.release();
         }
     });
 };
 
-module.exports.getVoitureNumEcurie=function(num,callback){
-    // connection a la base
-    db.getConnection(function(err, connexion){
-        if(!err){
-            // s'il n'y a pas d'erreur de connexion
-            // execution de la requete SQL
-            let sql="SELECT v.VOINOM, v.VOIADRESSEIMAGE, tv.TYPELIBELLE FROM voiture v, type_voiture tv WHERE v.TYPNUM = tv.TYPNUM AND v.ECUNUM = " + num + " ";
-            connexion.query(sql, callback);
-
-            // la connexion retourne dans le pool
-            connexion.release();
-        }
-    });
-};
-
-module.exports.getInfosEcuries=function(num, callback){
-    // connection a la base
-    db.getConnection(function(err, connexion){
-        if(!err){
-            // s'il n'y a pas d'erreur de connexion
-            // execution de la requete SQL
-            let sql="SELECT e.ECUNUM, e.ECUNOM, e.ECUNOMDIR, e.ECUADRSIEGE, e.ECUPOINTS, p.PAYNOM, fp.FPNOM, e.ECUADRESSEIMAGE FROM ecurie e, pays p, fourn_pneu fp WHERE" +
-                " e.PAYNUM = p.PAYNUM AND e.FPNUM = fp.FPNUM AND e.ECUNUM = " + num;
-            connexion.query(sql, callback);
-
-            // la connexion retourne dans le pool
-            connexion.release();
-        }
-    });
-};
-
-module.exports.getMenuEcurie=function(callback){
-    // connection a la base
-    db.getConnection(function(err, connexion){
-        if(!err){
-            // s'il n'y a pas d'erreur de connexion
-            // execution de la requete SQL
-            let sql="SELECT e.ECUNUM, e.ECUNOM, e.ECUNOMDIR, e.ECUPOINTS  FROM ecurie e ORDER BY e.ECUNOM";
+module.exports.ajouterEcurie = function (values, callback) {
+    db.getConnection(function (err, connexion) {
+        if (!err) {
+            let sql = "INSERT INTO ecurie (ECUNOM, ECUNOMDIR, ECUADRSIEGE, ECUPOINTS, PAYNUM, FPNUM, ECUADRESSEIMAGE) ";
+            sql += "VALUES('"+values.nom+"','"+values.directeur+"','"+values.adresse+"',"+values.points+","+values.pays+","+values.fournisseur+",'"+values.image+"')";
             console.log(sql);
             connexion.query(sql, callback);
-
-            // la connexion retourne dans le pool
             connexion.release();
         }
     });
 };
 
-module.exports.getAllEcurie=function(callback){
-	db.getConnection(function(err,connexion){
-		if(!err){
-			let sql="SELECT ECUNUM,ECUNOM FROM ecurie ";
-			sql+="ORDER BY ECUNOM";
-			console.log(sql);
-			connexion.query(sql,callback)
-			connexion.release();
-		}
-	});
-};
-
-module.exports.ajouterEcurie=function(values,callback){
-    db.getConnection(function(err,connexion){
-        if(!err){
-            let sql="INSERT INTO ecurie (ECUNOM, ECUNOMDIR, ECUADRSIEGE, ECUPOINTS, PAYNUM, ECUADRESSEIMAGE) ";
-            sql+="VALUES("+values.nom+"',"+values.nomdir+","+values.adressesiege+",'"+values.nbpoints+"','"+values.pays+"','"+values.image+"')";
-            connexion.query(sql,callback)
+module.exports.getEcurieParNum = function (num, callback) {
+    db.getConnection(function (err, connexion) {
+        if (!err) {
+            let sql = "SELECT ECUNUM, ECUNOM, ECUNOMDIR, ECUADRSIEGE, ECUPOINTS, PAYNUM, FPNUM, ECUADRESSEIMAGE FROM ecurie WHERE ECUNUM=" + num;
+            connexion.query(sql, callback);
             connexion.release();
         }
     });
@@ -116,9 +59,67 @@ module.exports.ajouterEcurie=function(values,callback){
 module.exports.modifierEcurie=function(num,values,callback){
     db.getConnection(function(err,connexion){
         if(!err){
-            let sql="UPDATE ecurie SET PAYNUM="+values.pays+",CIRNOM='"+values.nom+"',CIRLONGUEUR="+values.longueur+",CIRNBSPECTATEURS="+values.spectateur+",CIRADRESSEIMAGE='"+values.adresseImage+"',CIRTEXT='"+values.description+"' ";
-            sql+="WHERE CIRNUM="+num;
+            let sql="UPDATE ecurie SET ECUNOM='"+values.nom+"',ECUPOINTS=" + values.points+", ECUNOMDIR='"+values.directeur+"', FPNUM="+values.fournisseur+",ECUADRSIEGE='"+values.adresse+"', ECUADRESSEIMAGE='"+values.adresseImage+"'";
+            sql+="WHERE ECUNUM="+num;
             connexion.query(sql,callback)
+            connexion.release();
+        }
+    });
+};
+
+
+module.exports.supprimerEcurieVoiture = function (num, callback) {
+    //connection à la base
+    db.getConnection(function (err, connexion) {
+        if (!err) {
+            //s'il n'y a pas d'erreur de connexion
+            //execution de la requête SQL
+            let sql = "DELETE FROM voiture WHERE ECUNUM=" + num;
+            //console.log (sql);
+            connexion.query(sql, callback);
+            //la connexion retourne dans le pool
+            connexion.release();
+        }
+    });
+};
+module.exports.supprimerEcurieSponsor = function (num, callback) {
+    //connection à la base
+    db.getConnection(function (err, connexion) {
+        if (!err) {
+            //s'il n'y a pas d'erreur de connexion
+            //execution de la requête SQL
+            let sql = "DELETE FROM finance WHERE ECUNUM=" + num;
+            //console.log (sql);
+            connexion.query(sql, callback);
+            //la connexion retourne dans le pool
+            connexion.release();
+        }
+    });
+};
+module.exports.supprimerEcuriePilote = function (num, callback) {
+    //connection à la base
+    db.getConnection(function (err, connexion) {
+        if (!err) {
+            //s'il n'y a pas d'erreur de connexion
+            //execution de la requête SQL
+            let sql = "UPDATE pilote SET ECUNUM=null WHERE ECUNUM=" + num;
+            //console.log (sql);
+            connexion.query(sql, callback);
+            //la connexion retourne dans le pool
+            connexion.release();
+        }
+    });
+};
+module.exports.supprimerEcurie = function (num, callback) {
+    //connection à la base
+    db.getConnection(function (err, connexion) {
+        if (!err) {
+            //s'il n'y a pas d'erreur de connexion
+            //execution de la requête SQL
+            let sql = "DELETE FROM ecurie WHERE ECUNUM=" + num;
+            //console.log (sql);
+            connexion.query(sql, callback);
+            //la connexion retourne dans le pool
             connexion.release();
         }
     });

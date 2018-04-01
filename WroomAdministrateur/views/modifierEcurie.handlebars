@@ -1,30 +1,36 @@
-<center><h1>Modifier une Ecurie</h1></center>
-
+<center><h1>Modifier une écurie</h1></center>
 <form action="/menuEcurie/modifierEcurie/{{infosEcurie.ECUNUM}}/modifier" method="post">
     <table>
-        <tr><td>Nom</td><td><input type="text" name="nom" value="{{infosEcurie.ECUNOM}}" required/></td></tr>
-        <tr><td>Directeur</td><td><input type="text" name="directeur" value="{{infosEcurie.ECUNOMDIR}}" required/></td></tr>
-        <tr><td>Adresse du siege</td><td><input type="text" name="adresse" value="{{infosEcurie.ECUADRSIEGE}}" required/></td></tr>
+        <tr><td>Nom</td><td><input type="text" name="nom" value="{{infosEcurie.ECUNOM}}"required></td></tr>
+        <tr><td>Directeur</td><td><input type="text" name="directeur" value="{{infosEcurie.ECUNOMDIR}}" required></td></tr>
+        <tr><td>Adresse du siège</td><td><input type="text" name="adresse" value="{{infosEcurie.ECUADRSIEGE}}" required></td></tr>
+        <tr><td>Points</td><td><input type="number" name="points" value="{{infosEcurie.ECUPOINTS}}" required>pts</td></tr>
+        <tr><td>Pays</td>
+            <td>
+                <select name="pays">
+                    {{#each listePays}}
+                        <option value="{{this.PAYNUM}}" {{#ifCond  ../infosCircuit.PAYNUM '==' this.PAYNUM}}selected{{/ifCond}}>{{this.PAYNOM}}</option>
+                    {{/each}}
+                </select>
+            </td>
         </tr>
-        <tr>
-            <td>Pays </td><td>
-            <select name="pays" value="{{infosEcurie.ECUNOM}}">
-                {{#each listePays}}
-                    <option value="{{this.PAYNUM}}">{{this.PAYNOM}}</option>
-                {{/each}}
-            </select>
-        </td>
+        <tr><td>Fournisseur de pneus</td>
+            <td>
+                <select name="fournisseur">
+                    {{#each listeFournisseurs}}
+                        <option value="{{this.FPNUM}}" {{#ifCond  ../infosEcurie.FPNUM '==' this.FPNUM}}selected{{/ifCond}}>{{this.FPNOM}}</option>
+                    {{/each}}
+                </select>
+            </td>
         </tr>
-        <tr><td>Points</td><td><input type="number" name="points" min="0" required/> pts</td></tr>
         <tr><td>Image</td>
             <td>
-                <input type="file" name="adresseImage" required/>
+                <input type="file" name="adresseImage" value="C:/wamp64/www/Wroom/public/image/ecurie/{{infosEcurie.ECUADRESSEIMAGE}}" required/>{{infosEcurie.ECUADRESSEIMAGE}}
             </td>
         </tr>
     </table>
-        
+
     <br/><br/>
     <input type="submit" name="modifier" value="Modifier" id="bouton"/>
 </form>
-
-<br class="myboth" />
+<br class="myboth">

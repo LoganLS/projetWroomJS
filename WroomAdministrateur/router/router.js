@@ -31,12 +31,11 @@ module.exports = function(app){
 
 // Ecuries
     app.get('/menuEcurie', EcurieController.menuEcurie);
-    app.get('/detailEcurie/:numEcurie', EcurieController.DetailEcurie);
     app.get('/menuEcurie/ajouterEcurie',EcurieController.pageAjouterEcurie);
     app.post('/menuEcurie/ajouterEcurie/ajout',EcurieController.ajouterEcurie);
-    app.get('/menuEcurie/modifierEcurie/:numPilote',EcurieController.pageModifierEcurie);
-    app.post('/menuEcurie/modifierEcurie/:numPilote/modifier',EcurieController.modifierEcurie);
-    app.get('/menuEcurie/supprimerEcurie/:numPilote',EcurieController.pageSupprimerEcurie);
+    app.get('/menuEcurie/modifierEcurie/:numEcurie',EcurieController.pageModifierEcurie);
+    app.post('/menuEcurie/modifierEcurie/:numEcurie/modifier',EcurieController.modifierEcurie);
+    app.get('/menuEcurie/supprimerEcurie/:numEcurie',EcurieController.pageSupprimerEcurie);
 
  //Résultats
    //app.get('/resultats', ResultatController.ListerResultat);

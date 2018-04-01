@@ -1,31 +1,36 @@
 <center><h1>Ajouter une écurie</h1></center>
-
-<form action="/menuPilotes/ajouterEcurie/ajout" method="post">
+<form action="/menuEcurie/ajouterEcurie/ajout" method="post">
     <table>
-        
-        <tr><td>Nom</td><td><input type="text" name="nom" required/></td></tr>
-        <tr><td>Directeur</td><td><input type="text" name="directeur" required/></td></tr>
-        <tr><td>Adresse du siege</td><td><input type="text" name="adresse" required/></td></tr>
-        </tr>
-        <tr>
-            <td>Pays </td><td>
-            <select name="pays">
-                {{#each listePays}}
-                    <option value="{{this.PAYNUM}}">{{this.PAYNOM}}</option>
-                {{/each}}
-            </select>
+        <tr><td>Nom</td><td><input type="text" name="nom" required></td></tr>
+        <tr><td>Directeur</td><td><input type="text" name="directeur" required></td></tr>
+        <tr><td>Adresse du siège</td><td><input type="text" name="adresse" required></td></tr>
+        <tr><td>Points</td><td><input type="number" name="points" required>pts</td></tr>
+        <tr><td>Pays</td>
+            <td>
+                <select name="pays">
+                    {{#each listePays}}
+                        <option value="{{this.PAYNUM}}">{{this.PAYNOM}}</option>
+                    {{/each}}
+                </select>
             </td>
         </tr>
-        <tr><td>Points</td><td><input type="number" name="points" min="0" required/> pts</td></tr>
+        <tr><td>Fournisseur de pneus</td>
+            <td>
+                <select name="fournisseur">
+                    {{#each listeFournisseurs}}
+                        <option value="{{this.FPNUM}}">{{this.FPNOM}}</option>
+                    {{/each}}
+                </select>
+            </td>
+        </tr>
         <tr><td>Image</td>
             <td>
-                <input type="file" name="adresseImage" required/>
+                <input type="file" name="adresseImage" required>
             </td>
         </tr>
     </table>
-        
+
     <br/><br/>
     <input type="submit" name="ajouter" value="Ajouter" id="bouton"/>
 </form>
-
-<br class="myboth" />
+<br class="myboth">
