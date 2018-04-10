@@ -1,0 +1,40 @@
+
+<form action="/menuResultats/modifierResultats/ajout" method="POST">
+    <table>
+        <tr>
+            <th></th>
+            <th>Place</th>
+            <th>Pilote</th>
+            <th>Temps</th>
+            <th>Points</th>
+        </tr>
+        {{#each resultats}}
+            <tr>
+                <td><a href="/menuResultats/modifierResultats/supprimer"><img src="/image/delete.png" width="16px" height="16px"></a></td>
+                <td>{{inc @index}}</td>
+                <td>{{this.1.PILNOM}}</td>
+                <td>{{this.1.TEMPSCOURSE}}</td>
+                <td>{{this.0.PTNBPOINTSPLACE}}</td>
+            </tr>
+        {{/each}}
+        <tr>
+            <td>{{placeSuivante}}</td>
+            <td>
+                <select name="pilnum">
+                    {{#each pilotes}}
+                        <option value="{{this.PILNUM}}">{{this.PILNOM}}</option>
+                    {{/each}}
+                </select>
+            </td>
+            <td>
+                <input id="temps" name="temps" type="text" value="{{tempsMini}}" pattern="{{patternTempsMini}}" title="{{tempsMini}}">
+            </td>
+            <td>
+                <input id="nbpoints" class="hidden" name="nbpoints" type="number" value="{{nbPointsSuivant}}">
+                <input id="num" class="hidden" name="num" type="number" value="{{gpnum}}">
+            </td>
+            <td><input id="valider" name="valider" type="submit"></td>
+        </tr>
+    </table>
+</form>
+<br class="myboth">

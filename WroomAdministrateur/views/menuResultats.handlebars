@@ -1,0 +1,14 @@
+<img src="image/cat_resultat.png" alt="casque">
+
+<h1>Résultats</h1>
+
+<form action="/menuResultats/modifierResultats/{{this.gp}}" method="POST">
+    <p>Sélectionnez un grand prix:</p>
+    <select name="gp">
+        {{#each listeGp}}
+            <option value="{{this.GPNUM}}">{{this.GPNOM}}</option>
+        {{/each}}
+    </select>
+    <input id="valider" name="valider" type="submit">
+</form>
+<br class="myboth">

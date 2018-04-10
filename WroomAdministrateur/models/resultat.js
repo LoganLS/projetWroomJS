@@ -12,65 +12,63 @@ let db = require('../configDb');
 * @return Un tableau qui contient le N°, le nom de l'écurie et le nom de la photo du drapeau du pays
 */
 module.exports.getListeGrandPrix = function (callback) {
-    // connection à la base
     db.getConnection(function(err, connexion){
         if(!err){
-            // s'il n'y a pas d'erreur de connexion
-            // execution de la requête SQL
-            let sql ="SELECT g.GPNOM, ";
+            let sql ="SELECT GPNUM, CIRNUM, GPNOM, GPDATE, GPNBTOURS, GPDATEMAJ, GPCOMMENTAIRE FROM grandprix";
+            connexion.query(sql, callback);
+            connexion.release();
+        }
+    });
+};
+
+module.exports.getGrandPrixParNum = function (callback) {
+    db.getConnection(function(err, connexion){
+        if(!err){
+            let sql = "SELECT GPNUM, c.PILNUM, TEMPSCOURSE, PILNOM FROM course c JOIN pilote p ON c.PILNUM=p.PILNUM WHERE GPNUM=" + num + " ORDER BY TEMPSCOURSE ASC";
+            connexion.query(sql, callback);
+            connexion.release();
+        }
+    });
+};
+
+module.exports.getPointsParPlace = function (callback) {
+    db.getConnection(function (err, connexion) {
+        if (!err) {
+            let sql = "SELECT PTPLACE, PTNBPOINTSPLACE FROM points ORDER BY PTPLACE ASC";
+            connexion.query(sql, callback);
+            connexion.release();
+        }
+    });
+};
+
+
+module.exports.getPilotesParNum = function (num, callback) {
+    db.getConnection(function (err, connexion) {
+        if (!err) {
+            let sql = "SELECT PILNUM, PILNOM FROM pilote WHERE ECUNUM IS NOT NULL AND PILNUM NOT IN (SELECT PILNUM FROM course WHERE GPNUM=" + num + ") ORDER BY PILNOM ASC";
             //console.log (sql);
             connexion.query(sql, callback);
-
-            // la connexion retourne dans le pool
             connexion.release();
         }
     });
 };
-/*
-module.exports.getPiloteNumEcurie=function(num,callback){
-    // connection a la base
-    db.getConnection(function(err, connexion){
-        if(!err){
-            // s'il n'y a pas d'erreur de connexion
-            // execution de la requete SQL
-            let sql="SELECT p.PILNOM, p.PILPRENOM, ph.PHOADRESSE FROM pilote p, photo ph WHERE p.PILNUM = ph.PILNUM AND ph.PHONUM=1 AND ECUNUM = " + num + " ";
+
+
+module.exports.initialiserPointsPilotes = function (callback) {
+    db.getConnection(function (err, connexion) {
+        if (!err) {
+            let sql = "UPDATE pilote SET PILPOINTS=0 WHERE PILPOINTS IS NULL";
             connexion.query(sql, callback);
-
-            // la connexion retourne dans le pool
             connexion.release();
         }
     });
 };
-
-module.exports.getVoitureNumEcurie=function(num,callback){
-    // connection a la base
-    db.getConnection(function(err, connexion){
-        if(!err){
-            // s'il n'y a pas d'erreur de connexion
-            // execution de la requete SQL
-            let sql="SELECT v.VOINOM, v.VOIADRESSEIMAGE, tv.TYPELIBELLE FROM voiture v, type_voiture tv WHERE v.TYPNUM = tv.TYPNUM AND v.ECUNUM = " + num + " ";
+module.exports.initialiserPointsEcuries = function (callback) {
+    db.getConnection(function (err, connexion) {
+        if (!err) {
+            let sql = "UPDATE ecurie SET ECUPOINTS=0 WHERE ECUPOINTS IS NULL";
             connexion.query(sql, callback);
-
-            // la connexion retourne dans le pool
             connexion.release();
         }
     });
 };
-
-module.exports.getInfosEcuries=function(num, callback){
-    // connection a la base
-    db.getConnection(function(err, connexion){
-        if(!err){
-            // s'il n'y a pas d'erreur de connexion
-            // execution de la requete SQL
-            let sql="SELECT e.ECUNOM, e.ECUNOMDIR, e.ECUADRSIEGE, p.PAYNOM, fp.FPNOM, e.ECUADRESSEIMAGE FROM ecurie e, pays p, fourn_pneu fp WHERE" +
-                " e.PAYNUM = p.PAYNUM AND e.FPNUM = fp.FPNUM AND e.ECUNUM = " + num;
-            connexion.query(sql, callback);
-
-            // la connexion retourne dans le pool
-            connexion.release();
-        }
-    });
-};
-
-*/

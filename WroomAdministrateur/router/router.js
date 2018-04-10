@@ -38,7 +38,12 @@ module.exports = function(app){
     app.get('/menuEcurie/supprimerEcurie/:numEcurie',EcurieController.pageSupprimerEcurie);
 
  //Résultats
-   //app.get('/resultats', ResultatController.ListerResultat);
+    app.get('/menuResultats', ResultatController.menuResultats);
+    app.post('/menuResultats/modifierResultats/ajout',ResultatController.ModifierResultats);
+  /*
+    app.get('/menuResultats/modifierResultat/:numGP',ResultatController.pageModifierEcurie);
+    app.post('/menuResultats/modifierResultat/:numGP/modifier',ResultatController.modifierEcurie);
+    app.get('/menuResultats/supprimerResultat/:numGP',ResultatController.pageSupprimerEcurie);*/
     
 //Sponsors
     app.get('/menuSponsors', SponsorController.menuSponsor);
