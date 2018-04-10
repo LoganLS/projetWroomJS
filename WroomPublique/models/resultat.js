@@ -7,11 +7,6 @@
 
 let db = require('../configDb');
 
-/*
-* Récupérer l'intégralité les écuries avec l'adresse de la photo du pays de l'écurie
-* @return Un tableau qui contient le N°, le nom de l'écurie et le nom de la photo du drapeau du pays
-*/
-
 module.exports.getListeGrandPrix = function (callback) {
     // connection à la base
     db.getConnection(function(err, connexion){
@@ -29,73 +24,43 @@ module.exports.getListeGrandPrix = function (callback) {
         }
     });
 };
-/*
-module.exports.getPiloteNumEcurie=function(num,callback){
-    // connection a la base
+
+module.exports.getGrandPrixParNum = function (num, callback) {
     db.getConnection(function(err, connexion){
         if(!err){
-            // s'il n'y a pas d'erreur de connexion
-            // execution de la requete SQL
-            let sql="SELECT p.PILNOM, p.PILPRENOM, ph.PHOADRESSE FROM pilote p, photo ph WHERE p.PILNUM = ph.PILNUM AND ph.PHONUM=1 AND ECUNUM = " + num + " ";
+            let sql = "SELECT c.GPNUM, c.PILNUM, c.TEMPSCOURSE, p.PILNOM FROM course c JOIN pilote p ON c.PILNUM=p.PILNUM WHERE GPNUM=" + num + " ORDER BY c.TEMPSCOURSE ASC";
             connexion.query(sql, callback);
-
-            // la connexion retourne dans le pool
             connexion.release();
         }
     });
 };
 
-module.exports.getVoitureNumEcurie=function(num,callback){
-    // connection a la base
-    db.getConnection(function(err, connexion){
-        if(!err){
-            // s'il n'y a pas d'erreur de connexion
-            // execution de la requete SQL
-            let sql="SELECT v.VOINOM, v.VOIADRESSEIMAGE, tv.TYPELIBELLE FROM voiture v, type_voiture tv WHERE v.TYPNUM = tv.TYPNUM AND v.ECUNUM = " + num + " ";
+module.exports.getPointsParPlace = function (callback) {
+    db.getConnection(function (err, connexion) {
+        if (!err) {
+            let sql = "SELECT PTPLACE, PTNBPOINTSPLACE FROM points ORDER BY PTPLACE ASC";
             connexion.query(sql, callback);
-
-            // la connexion retourne dans le pool
             connexion.release();
         }
     });
 };
 
-module.exports.getInfosEcuries=function(num, callback){
-    // connection a la base
-    db.getConnection(function(err, connexion){
-        if(!err){
-            // s'il n'y a pas d'erreur de connexion
-            // execution de la requete SQL
-            let sql="SELECT e.ECUNOM, e.ECUNOMDIR, e.ECUADRSIEGE, p.PAYNOM, fp.FPNOM, e.ECUADRESSEIMAGE FROM ecurie e, pays p, fourn_pneu fp WHERE" +
-                " e.PAYNUM = p.PAYNUM AND e.FPNUM = fp.FPNUM AND e.ECUNUM = " + num;
-            connexion.query(sql, callback);
 
-            // la connexion retourne dans le pool
+module.exports.getPilotesParNum = function (num, callback) {
+    db.getConnection(function (err, connexion) {
+        if (!err) {
+            let sql = "SELECT PILNUM, PILNOM FROM pilote WHERE ECUNUM IS NOT NULL AND PILNUM NOT IN (SELECT PILNUM FROM course WHERE GPNUM=" + num + ") ORDER BY PILNOM ASC";
+            //console.log (sql);
+            connexion.query(sql, callback);
             connexion.release();
         }
     });
 };
-
-*/
-
-module.exports.getResultatGrandPrix=function(num, callback){
-    db.getConnection(function(err, connexion){
-        if(!err){
-
-            let sql = "SELECT p.PILNOM, c.TEMPSCOURSE FROM pilote p, course c, grandprix g WHERE p.PILNUM = c.PILNUM AND c.GPNUM = g.GPNUM AND g.GPNUM = " + num + " ORDER BY c.TEMPSCOURSE" +
-                "";
-            connexion.query(sql, callback);
-
-            connexion.release();
-        }
-    })
-}
-
 module.exports.getDernierResultat = function (callback) {
     db.getConnection(function (err, connexion) {
         if (!err) {
 
-            let sql = "SELECT gpnum, gpnom, gpdate, gpdatemaj from grandprix order by gpdate desc limit 1" ;
+            let sql = "SELECT GPNUM, GPNOM, GPDATE, GPDATEMAJ FROM grandprix ORDER BY GPDATE DESC LIMIT 1" ;
             //console.log (sql);
             connexion.query(sql, callback);
 

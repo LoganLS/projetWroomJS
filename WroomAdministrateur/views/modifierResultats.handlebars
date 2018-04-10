@@ -1,6 +1,7 @@
-
+<center>
+<h1>Saisie des résultats</h1>
 <form action="/menuResultats/modifierResultats/ajout" method="POST">
-    <table>
+    <table id="tableMenu">
         <tr>
             <th></th>
             <th>Place</th>
@@ -10,7 +11,7 @@
         </tr>
         {{#each tableau}}
             <tr>
-                <td>
+                <td class="ligne">
                     <a href="/menuResultats/supprimerResultat/{{this.1.GPNUM}}/{{this.1.PILNUM}}/
                     {{#if this.0.PTNBPOINTSPLACE}}
                         {{this.0.PTNBPOINTSPLACE}}
@@ -20,10 +21,10 @@
                         <img src="/image/delete.png" width="16px" height="16px">
                     </a>
                 </td>
-                <td>{{inc @index}}</td>
-                <td>{{this.1.PILNOM}}</td>
-                <td>{{this.1.TEMPSCOURSE}}</td>
-                     <td>{{#if this.0.PTNBPOINTSPLACE}}
+                <td class="ligne">{{inc @index}}</td>
+                <td class="ligne">{{this.1.PILNOM}}</td>
+                <td class="ligne">{{this.1.TEMPSCOURSE}}</td>
+                     <td class="ligne">{{#if this.0.PTNBPOINTSPLACE}}
                      {{this.0.PTNBPOINTSPLACE}}
                      {{else}}
                      0
@@ -32,16 +33,16 @@
             </tr>
         {{/each}}
         <tr>
-            <td>{{inc tableau.length}}</td>
-            <td>
+            <td class="ligne">{{inc tableau.length}}</td>
+            <td class="ligne">
                 <select name="pilnum">
                     {{#each listePilotes}}
                         <option value="{{this.PILNUM}}">{{this.PILNOM}}</option>
                     {{/each}}
                 </select>
             </td>
-            <td>
-                <input id="temps" name="temps" type="text" pattern="[0-5][0-9]:[0-5][0-9]:[0-9][0-9]" required="true">
+            <td class="ligne">
+                <input id="temps" name="temps" type="text" pattern="[0-5][0-9]:[0-5][0-9]:[0-9][0-9]" value="00:00:00" required="true">
             </td>
                 <input id="tempsMini" class="hidden" name="tempsMini" type="text" value="{{tempsMini}}">
                 <input id="nbpoints" class="hidden" name="nbpoints" type="number" value="{{nbPointsSuivant}}">
@@ -51,4 +52,5 @@
         </tr>
     </table>
 </form>
+</center>
 <br class="myboth">

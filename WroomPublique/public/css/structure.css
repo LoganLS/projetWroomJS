@@ -1,6 +1,6 @@
     body {
     	font-family: "Segoe UI", "DejaVu Sans",Verdana, sans-serif;
-    	background: url('/image/fond.jpg') repeat;
+    	background: url('../image/fond.jpg') repeat;
 		  font-size:0.8em;
     	margin: 0;
     	padding: 0;
@@ -30,7 +30,7 @@
 		font-size:0.8em;
 		text-align:center;
 		height:150px;
-		background:url(/image/footer.jpg) no-repeat;
+		background:url(../image/footer.jpg) no-repeat;
     }
 	#menu a	{
 		color:#ffffff;
@@ -47,7 +47,7 @@
  	  float:right;
  	  padding:10px;
  	  border:1px solid black;
- 	  margin:10px
+ 	  margin:10px;
  	  -moz-border-radius:15px;
  	  border-radius:15px;
  }
@@ -122,3 +122,12 @@ color:white;
   border-top-color: #ccc;
   bottom: -8px;
 }
+
+    #tableMenu{
+        border:1px solid black;
+        border-collapse:collapse;
+    }
+
+    th,.ligne{
+        border:1px solid black;
+    }
