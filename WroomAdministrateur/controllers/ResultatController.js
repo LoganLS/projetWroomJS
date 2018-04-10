@@ -37,28 +37,35 @@ module.exports.menuResultats = function(request, response){
                 console.log(err);
                 return;
             }
-        response.listeGp = result[0]
+        response.listeGp = result[0];;
         response.render('menuResultats', response);
     });
 }
 
 module.exports.ModifierResultats = function(request,response){
     response.title = 'Modifier Resultats';
+    response.css = 'admin';
     let tableau = [];
-    let num = request.params.numGp;
+    let num = request.body.gp;
     let placeSuivante;
     let nbPointsSuivant;
     let tempsMini;
 
     async.parallel ([
             function (callback) {
-                model.getPointsParPlace(function (err, result) { callback(null, result) });
+                model.getPointsParPlace(function (err, result) {
+                    callback(null, result)
+                });
             },
             function (callback) {
-                model.getGrandPrixParNum(num, function (err, result) { callback(null, result) });
+                model.getGrandPrixParNum(num, function (err, result) {
+                    callback(null, result)
+                });
             },
             function (callback) {
-                model.getPilotesParNum(num, function (err, result) { callback(null, result) });
+                model.getPilotesParNum(num, function (err, result) {
+                    callback(null, result)
+                });
             },
         ],
         function (err, result) {
@@ -67,16 +74,19 @@ module.exports.ModifierResultats = function(request,response){
                 console.log(err);
                 return;
             }
-            for (let i = 0 ; i <= result[1].length ; i++) {
-                if (i < result[1].length) {
-                    tableau[i] = [result[0][i], result[1][i]];
-                } else {
-                    if (result[0][i - 1].ptplace != 10) {
-                        nbPointsSuivant = result[0][i].PTNBPOINTSPLACE;
+            else if (typeof result !== 'undefined' && result.length > 0) {
+
+                for (let i = 0 ; i <= result[1].length ; i++) {
+                    if (i < result[1].length) {
+                        tableau[i] = [result[0][i], result[1][i]];
                     } else {
-                        nbPointsSuivant = 0;
+                        if (i + 1 <= 10) {
+                            nbPointsSuivant = result[0][i].PTNBPOINTSPLACE;
+                        } else {
+                            nbPointsSuivant = 0;
+                        }
+                        tempsMini = result[1][i - 1].TEMPSCOURSE;
                     }
-                    tempsMini = result[1][i - 1].TEMPSCOURSE;
                 }
             }
             //[] sql retourne plusieurs lignes
@@ -86,12 +96,77 @@ module.exports.ModifierResultats = function(request,response){
             response.nbPointsSuivant = nbPointsSuivant;
             response.gpnum = num;
             response.tempsMini = tempsMini;
-            response.patternTempsMini = fonctions.patternTempsMini(tempsMini);
             response.listePilotes= result[2];
-            console.log(result[1]);
-            console.log(result[1][0]);
-            console.log(result[0]);
-            response.render('modifierResultat',response);
+            response.render('modifierResultats',response);
         }
     );//fin async
+}
+
+
+module.exports.ajouterResultat = function(request, response){
+    response.title = 'Résultat ajouté';
+    response.css="admin";
+
+    let num = request.body.num;
+    let pilnum = request.body.pilnum;
+    let temps =  request.body.temps;
+    let nbpoints = request.body.nbpoints;
+
+    console.log(num);
+    console.log(pilnum);
+    console.log(temps);
+    console.log(nbpoints);
+
+    async.parallel ([
+        function (callback) {
+            model.ajouterPointsPilote(pilnum, nbpoints, function (err, result) {
+                callback(null, result)
+            });
+        },
+        function (callback) {
+            model.ajouterPointsEcurie(pilnum, nbpoints, function (err, result) {
+                callback(null, result)
+            });
+        },
+        function (callback) {
+            model.ajouterResultat(num, pilnum, temps, function (err, result) {
+                callback(null, result)
+            });
+        },
+    ],
+        function (err, result) {
+            if (err) {
+                console.log(err);
+                return;
+            }
+            response.render('ajout', response);
+    });
+}
+
+
+module.exports.pageSupprimerResultat = function(request, response){
+    response.title = 'Résultat supprimé';
+    response.css="admin";
+    var num=request.params.numGrandPrix;
+    var pilote=request.params.numPilote;
+    var nbpoints = request.params.nbPoints;
+
+    async.parallel ([
+        function (callback) {
+            model.supprimerPtsPilote(pilote, nbpoints, function (err, result) { callback(null, result) });
+        },
+        function (callback) {
+            model.supprimerPtsEcurie(pilote, nbpoints, function (err, result) { callback(null, result) });
+        },
+        function (callback) {
+            model.supprimerResultat(num, pilote, function (err, result) { callback(null, result) });
+        },
+    ],
+        function (err, result) {
+        if (err) {
+            return;
+        }
+
+        response.render('supprimer', response);
+    });
 }

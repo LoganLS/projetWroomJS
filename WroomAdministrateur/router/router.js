@@ -39,11 +39,14 @@ module.exports = function(app){
 
  //Résultats
     app.get('/menuResultats', ResultatController.menuResultats);
-    app.post('/menuResultats/modifierResultats/ajout',ResultatController.ModifierResultats);
-  /*
-    app.get('/menuResultats/modifierResultat/:numGP',ResultatController.pageModifierEcurie);
-    app.post('/menuResultats/modifierResultat/:numGP/modifier',ResultatController.modifierEcurie);
-    app.get('/menuResultats/supprimerResultat/:numGP',ResultatController.pageSupprimerEcurie);*/
+    app.post('/menuResultats/modifierResultats', ResultatController.ModifierResultats);
+    app.post('/menuResultats/modifierResultats/ajout',ResultatController.ajouterResultat);
+    app.get('/menuResultats/supprimerResultat/:numGrandPrix/:numPilote/:nbPoints',ResultatController.pageSupprimerResultat);
+
+    /*
+      app.get('/menuResultats/modifierResultat/:numGP',ResultatController.pageModifierEcurie);
+      app.post('/menuResultats/modifierResultat/:numGP/modifier',ResultatController.modifierEcurie);
+      app.get('/menuResultats/supprimerResultat/:numGP',ResultatController.pageSupprimerEcurie);*/
     
 //Sponsors
     app.get('/menuSponsors', SponsorController.menuSponsor);

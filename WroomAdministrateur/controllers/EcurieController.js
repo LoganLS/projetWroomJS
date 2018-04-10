@@ -5,6 +5,7 @@ var async=require('async');
 
 module.exports.menuEcurie = function(request, response) {
     response.title = 'Gérer les ecuries';
+    response.css="admin";
     async.parallel ([
             function (callback) {
                 model.getAllEcurie(function (err, result) { callback(null, result) });

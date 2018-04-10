@@ -8,32 +8,46 @@
             <th>Temps</th>
             <th>Points</th>
         </tr>
-        {{#each resultats}}
+        {{#each tableau}}
             <tr>
-                <td><a href="/menuResultats/modifierResultats/supprimer"><img src="/image/delete.png" width="16px" height="16px"></a></td>
+                <td>
+                    <a href="/menuResultats/supprimerResultat/{{this.1.GPNUM}}/{{this.1.PILNUM}}/
+                    {{#if this.0.PTNBPOINTSPLACE}}
+                        {{this.0.PTNBPOINTSPLACE}}
+                    {{else}}
+                        0
+                    {{/if}}">
+                        <img src="/image/delete.png" width="16px" height="16px">
+                    </a>
+                </td>
                 <td>{{inc @index}}</td>
                 <td>{{this.1.PILNOM}}</td>
                 <td>{{this.1.TEMPSCOURSE}}</td>
-                <td>{{this.0.PTNBPOINTSPLACE}}</td>
+                     <td>{{#if this.0.PTNBPOINTSPLACE}}
+                     {{this.0.PTNBPOINTSPLACE}}
+                     {{else}}
+                     0
+                     {{/if}}
+                </td>
             </tr>
         {{/each}}
         <tr>
-            <td>{{placeSuivante}}</td>
+            <td>{{inc tableau.length}}</td>
             <td>
                 <select name="pilnum">
-                    {{#each pilotes}}
+                    {{#each listePilotes}}
                         <option value="{{this.PILNUM}}">{{this.PILNOM}}</option>
                     {{/each}}
                 </select>
             </td>
             <td>
-                <input id="temps" name="temps" type="text" value="{{tempsMini}}" pattern="{{patternTempsMini}}" title="{{tempsMini}}">
+                <input id="temps" name="temps" type="text" pattern="[0-5][0-9]:[0-5][0-9]:[0-9][0-9]" required="true">
             </td>
-            <td>
+                <input id="tempsMini" class="hidden" name="tempsMini" type="text" value="{{tempsMini}}">
                 <input id="nbpoints" class="hidden" name="nbpoints" type="number" value="{{nbPointsSuivant}}">
                 <input id="num" class="hidden" name="num" type="number" value="{{gpnum}}">
-            </td>
-            <td><input id="valider" name="valider" type="submit"></td>
+            <td>
+            <input id="valider" name="valider" type="submit"></td>
         </tr>
     </table>
 </form>

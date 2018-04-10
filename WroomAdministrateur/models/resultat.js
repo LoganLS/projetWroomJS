@@ -21,10 +21,10 @@ module.exports.getListeGrandPrix = function (callback) {
     });
 };
 
-module.exports.getGrandPrixParNum = function (callback) {
+module.exports.getGrandPrixParNum = function (num, callback) {
     db.getConnection(function(err, connexion){
         if(!err){
-            let sql = "SELECT GPNUM, c.PILNUM, TEMPSCOURSE, PILNOM FROM course c JOIN pilote p ON c.PILNUM=p.PILNUM WHERE GPNUM=" + num + " ORDER BY TEMPSCOURSE ASC";
+            let sql = "SELECT c.GPNUM, c.PILNUM, c.TEMPSCOURSE, p.PILNOM FROM course c JOIN pilote p ON c.PILNUM=p.PILNUM WHERE GPNUM=" + num + " ORDER BY c.TEMPSCOURSE ASC";
             connexion.query(sql, callback);
             connexion.release();
         }
@@ -67,6 +67,70 @@ module.exports.initialiserPointsEcuries = function (callback) {
     db.getConnection(function (err, connexion) {
         if (!err) {
             let sql = "UPDATE ecurie SET ECUPOINTS=0 WHERE ECUPOINTS IS NULL";
+            connexion.query(sql, callback);
+            connexion.release();
+        }
+    });
+};
+
+module.exports.ajouterPointsPilote = function (num, points, callback) {
+    db.getConnection(function (err, connexion) {
+        if (!err) {
+            let sql = "UPDATE pilote SET PILPOINTS=PILPOINTS+" + points + " WHERE PILNUM=" + num;
+            console.log(sql);
+            connexion.query(sql, callback);
+            connexion.release();
+        }
+    });
+};
+
+module.exports.ajouterPointsEcurie = function (num, points, callback) {
+    db.getConnection(function (err, connexion) {
+        if (!err) {
+            let sql = "UPDATE ecurie SET ECUPOINTS=ECUPOINTS+" + points + " WHERE ECUNUM=(SELECT ECUNUM FROM pilote WHERE pilnum=" + num + ")";
+            console.log(sql);
+            connexion.query(sql, callback);
+            connexion.release();
+        }
+    });
+};
+
+module.exports.ajouterResultat = function (gpnum, pilnum, tempscourse, callback) {
+    db.getConnection(function (err, connexion) {
+        if (!err) {
+
+            let sql = "INSERT INTO course(GPNUM, PILNUM, TEMPSCOURSE) VALUES (" + gpnum + ", " + pilnum + ", '" + tempscourse + "')";
+            console.log(sql);
+            connexion.query(sql, callback);
+            connexion.release();
+        }
+    });
+};
+
+module.exports.supprimerPtsPilote = function (pilnum, nbpoints, callback) {
+    db.getConnection(function (err, connexion) {
+        if (!err) {
+            let sql = "UPDATE pilote SET PILPOINTS=PILPOINTS-" + nbpoints + " WHERE PILNUM=" + pilnum;
+            connexion.query(sql, callback);
+            connexion.release();
+        }
+    });
+};
+
+module.exports.supprimerPtsEcurie = function (pilnum, nbpoints, callback) {
+    db.getConnection(function (err, connexion) {
+        if (!err) {
+            let sql = "UPDATE ecurie SET ECUPOINTS=ECUPOINTS-" + nbpoints + " WHERE ECUNUM=(SELECT ECUNUM FROM pilote WHERE PILNUM=" + pilnum + ")";
+            connexion.query(sql, callback);
+            connexion.release();
+        }
+    });
+};
+
+module.exports.supprimerResultat = function (gpnum, pilnum, callback) {
+    db.getConnection(function (err, connexion) {
+        if (!err) {
+            let sql = "DELETE FROM course WHERE GPNUM=" + gpnum + " AND PILNUM=" + pilnum;
             connexion.query(sql, callback);
             connexion.release();
         }
